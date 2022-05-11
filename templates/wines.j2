@@ -1,0 +1,113 @@
+<html>
+<!-- Adapted from the wines.html UI design -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wines</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script language="JavaScript">
+      function showform(dowhat) {
+        if (dowhat == 'insert'){
+          document.getElementById('browse').style.display = 'none';
+          document.getElementById('insert').style.display = 'block';
+          document.getElementById('update').style.display = 'none';
+          document.getElementById('delete').style.display = 'none';
+			}
+			// else if (dowhat == 'update'){
+			// 	document.getElementById('browse').style.display = 'none';
+			// 	document.getElementById('insert').style.display = 'none';
+			// 	document.getElementById('update').style.display = 'block';
+			// 	document.getElementById('delete').style.display = 'none';
+			// }
+			else if (dowhat == 'delete'){
+          document.getElementById('browse').style.display = 'none';
+          document.getElementById('insert').style.display = 'none';
+          document.getElementById('update').style.display = 'none';
+          document.getElementById('delete').style.display = 'block';
+        }
+      else if (dowhat == 'all'){
+          document.getElementById('browse').style.display = 'block';
+          document.getElementById('insert').style.display = 'block';
+          document.getElementById('update').style.display = 'block';
+          document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+          document.getElementById('browse').style.display = 'block';
+          document.getElementById('insert').style.display = 'none';
+          document.getElementById('update').style.display = 'none';
+          document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newWine() { showform('insert'); }
+    // function updateWine() { showform('update'); }
+    function deleteWine(pid) { showform ('delete'); }
+    function browseWines() { showform ('browse'); }
+    function showAll() { showform ('all');
+    }
+  </script>
+</head>
+
+<body onload="browseWines()">
+	<h1>WineCellar</h1> [ <a href="wines">Wines</a> | Winemakers | Winemaker Details | Work Orders | Invoices ]
+	<div id="browse">
+		<p><a href="#" onClick="newWine()">Add New Wine</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+					    
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our delete button -->
+						    <td><a href="delete_wines/{{item.wineID}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into wines-->
+		<form id="insertWine" action="/wines" method="post">
+			<legend><strong>Add Wine</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="make">Vintage:</label>
+				<input type="number" class="form-control" id="vintage" name="vintage" pattern="[0-9]+" placeholder="" required>
+
+				<label for="model">Vineyard:</label>
+				<input type="text" class="form-control" id="vineyard" name="vineyard" pattern="[A-Za-z0-9]{1,}" placeholder="" required>
+
+				<label for="color">Variety:</label>
+				<input type="text" class="form-control" id="variety" name="variety" pattern="[A-Za-z0-9]{1,}" placeholder="" required> 
+            </fieldset>
+
+            <!-- Create 'Add Wine' and 'Cancel' buttons -->
+			<input type="submit" value="Add Wine" name="Add_Wine" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseWines()"> 
+        </form>
+	</div><!--insert-->
+	
+</body>
+</html>
