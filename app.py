@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_XXXX'
-app.config['MYSQL_PASSWORD'] = #last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_XXXX'
+app.config['MYSQL_USER'] = 'cs340_scioccha'
+app.config['MYSQL_PASSWORD'] = '0474' #last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_scioccha'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 
@@ -72,6 +72,52 @@ def delete_wine(wineID):
     return redirect("/wines")
 
 
+
+# route for wines page
+@app.route("/winemakers", methods=["POST", "GET"])
+def winemakers():
+    # Separate out the request methods, in this case this is for a POST
+    # insert a new wine
+    if request.method == "POST":
+        if request.form.get("Add_Winemaker"):
+
+            # grab user form inputs
+            firstName = request.form["firstName"]
+            lastName = request.form["lastName"]
+            location = request.form["location"]
+
+            # add data
+            query = "INSERT INTO Winemakers (firstName, lastName, location) VALUES (%s, %s,%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (firstName, lastName, location))
+            mysql.connection.commit()
+
+
+            # redirect back to people page
+            return redirect("/winemakers")
+
+    # Grab bsg_people data so we send it to our template to display
+    if request.method == "GET":
+        # mySQL query to grab all wines in Wines
+        query = "SELECT winemakerID, firstName, lastName, location FROM Winemakers"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        # render edit_people page passing our query data and homeworld data to the edit_people template
+        return render_template("winemakers.j2", data=data)
+
+
+@app.route("/delete_winemakers/<int:winemakerID>")
+def delete_winemaker(winemakerID):
+    # mySQL query to delete the person with our passed id
+    query = "DELETE FROM Winemakers WHERE winemakerID = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (winemakerID,))
+    mysql.connection.commit()
+
+    # redirect back to wines
+    return redirect("/winemakers")
 
 # Listener
 # change the port number if deploying on the flip servers
