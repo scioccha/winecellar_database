@@ -66,6 +66,7 @@ def delete_wine(wineID):
 
 ###### END route for wines page ######
 
+
 ###### route for invoices page ######
 @app.route("/invoices", methods=["POST", "GET"])
 def invoices():
@@ -80,9 +81,9 @@ def invoices():
             quantityGallons = request.form["quantityGallons"]
 
             # add data
-            query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
+            query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
             cur = mysql.connection.cursor()
-            cur.execute(query, (dateReceived, price, quantityGallons))
+            cur.execute(query, (wineID, dateReceived, price, quantityGallons))
             mysql.connection.commit()
 
 
