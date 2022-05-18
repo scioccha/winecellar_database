@@ -103,13 +103,11 @@ def delete_invoices(invoiceID):
     # delete based on invoiceID value
     query = "DELETE FROM Invoices WHERE invoiceID = '%s';"
     cur = mysql.connection.cursor()
-    cur.execute(query, (wineID,))
+    cur.execute(query, (invoiceID,))
     mysql.connection.commit()
 
-    # redirect back to invoices
     return redirect("/invoices")
     
-
 ###### END route for invoices page ######
 
 
