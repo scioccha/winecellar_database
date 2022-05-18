@@ -72,7 +72,8 @@
 						    <td> {{item[key]}} </td> 
                             {% endfor %}
 
-                            <!-- Create our delete button -->
+                            <!-- Create edit and delete buttons -->
+                 <td><a href="edit_winemakers/{{item.winemakerID}}" class="btn btn-default">Edit</a></td>
 						    <td><a href="delete_winemakers/{{item.winemakerID}}" class="btn btn-default">Delete</a></td>
 
 					    </tr> 
@@ -94,7 +95,7 @@
 				<input type="text" class="form-control" id="lastName" name="lastName" pattern="[A-Za-z]{1,}" placeholder="" required>
 
 				<label>Location:</label>
-				<input type="text" class="form-control" id="location" name="location" pattern="[A-Za-z]{1,}" placeholder="" required> 
+				<input type="text" class="form-control" id="location" name="location" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" placeholder="" required> 
             </fieldset>
 
             <!-- Create 'Add Winemaker' and 'Cancel' buttons -->
