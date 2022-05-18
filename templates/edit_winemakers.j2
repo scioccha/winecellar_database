@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Edit Winemakers</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing User: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id="edit">
+            <!-- form to edit data in winemakers-->
+            <form id="editWinemaker" action="/edit_winemakers/{{data[0].winemakerID}}" method="post">
+                <legend><strong>Edit Winemaker</strong></legend>
+                <fieldset>
+                    <!-- Create hidden form input to store the passed 'id' of the person we are editing -->
+                    <input type="hidden" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" required>
+
+                    <label>first name:</label>
+                    <input type="text" value="{{data[0].firstName}}" class="form-control" id="firstName" name="firstName" pattern="[A-Za-z]{1,}" required>
+
+                    <label>last name:</label>
+                    <input type="text" value="{{data[0].lastName}}" class="form-control" id="lastName" name="lastName" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label>location:</label>
+                    <input type="text" value="{{data[0].location}}" class="form-control" id="location" name="location" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
+
+                
+                </fieldset>
+                <input type="submit" value="Submit Changes" name="Edit_Winemaker" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/winemakers'><input class="btn" type="button" value="cancel"></a>
+            </form>
+
+</html>
