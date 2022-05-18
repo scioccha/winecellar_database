@@ -15,7 +15,7 @@
                     <input type="hidden" value="{{data[0].workOrderID}}" class="form-control" id="workOrderID" name="workOrderID" required>
 
                     <label>Task:</label>
-                    <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="^.[1,400]$" required>
+                    <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
                     <label>Winemaker ID:</label>
                     <input type="number" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[A-Za-z]{1,}" required>
