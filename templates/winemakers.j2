@@ -1,0 +1,108 @@
+<html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Winemakers</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script language="JavaScript">
+    function showform(dowhat) {
+      if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+    	document.getElementById('browse').style.display = 'none';
+    	document.getElementById('insert').style.display = 'none';
+    	document.getElementById('update').style.display = 'block';
+    	document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newWinemaker() { showform('insert'); }
+  function updateWinemaker(pid) { showform('update'); }
+  function deleteWinemaker(pid) { showform ('delete'); }
+  function browseWinemakers() { showform ('browse'); }
+  function showAll() { showform ('all');
+  }
+</script>
+</head>
+
+<body onload="browseWinemakers()">
+	[ <a href="wines">Wines</a> | <a href="winemakers">Winemakers</a> | Winemaker Details | Work Orders | Invoices ]
+	<div id="browse">
+		<p><a href="#" onClick="newWinemaker()">Add New Winemaker</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+                        {% for key in data[0].keys() %}
+					    
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create edit and delete buttons -->
+                 <td><a href="edit_winemakers/{{item.winemakerID}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_winemakers/{{item.winemakerID}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into winemakers-->
+		<form id="insertWine" action="/winemakers" method="post">
+			<legend><strong>Add Winemaker</strong></legend>
+			<fieldset>
+				<label>First Name:</label>
+				<input type="text" class="form-control" id="firstName" name="firstName" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+				<label>Last Name:</label>
+				<input type="text" class="form-control" id="lastName" name="lastName" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+				<label>Location:</label>
+				<input type="text" class="form-control" id="location" name="location" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" placeholder="" required> 
+            </fieldset>
+
+            <!-- Create 'Add Winemaker' and 'Cancel' buttons -->
+			<input type="submit" value="Add Winemaker" name="Add_Winemaker" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseWinemakers()"> 
+        </form>
+	</div><!--insert-->
+	
+</body>
+</html>
