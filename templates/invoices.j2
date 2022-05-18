@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- Adapted from the invoices.html UI design -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invoices</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script language="JavaScript">
+    function showform(dowhat) {
+      if (dowhat == 'insert'){
+        document.getElementById('browse').style.display = 'none';
+        document.getElementById('insert').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+        document.getElementById('browse').style.display = 'block';
+        document.getElementById('insert').style.display = 'block';
+    }
+    else { //by default display browse
+        document.getElementById('browse').style.display = 'block';
+        document.getElementById('insert').style.display = 'none';
+    }
+  }
+  function newInvoice() { showform('insert'); }
+  function browseInvoices() { showform ('browse'); }
+  function showAll() { showform ('all');
+  }
+</script>
+</head>
+
+<body onload="browseInvoices()">
+  <h1>WineCellar</h1>
+  [ <a href="wines">Wines</a> | Winemakers | Winemaker Details | Work Orders | <a href="invoices">Invoices</a> ]
+
+  <div id="browse">
+    <p><a href="#" onClick="newInvoice()">Add New Invoice</a></p>
+    <table border="1" cellpadding="5">
+        <!-- Access data tuple passed from app.py --> 
+        {% if data %}
+        <thead>
+            <tr>
+                <!-- Iterate through each key in the first entry to get the column name -->
+                    {% for key in data[0].keys() %}
+                    
+                    <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                
+                    <!-- End of this for loop -->
+                    {% endfor %} 
+                </tr>
+        <tbody>
+			<!-- Now, iterate through every item in data -->{% for item in data %}
+			<tr>
+			    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+
+				<!-- Create a <td> element with the value of that key in it -->
+				<td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create our delete button -->
+				<td><a href="delete_invoices/{{item.invoiceID}}" class="btn btn-default">Delete</a></td>
+
+				</tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into invoices-->
+		<form id="insertInvoice" action="/invoice" method="post">
+			<legend><strong>Add Invoice</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label>Date Received:</label>
+				<input type="date" class="form-control" id="dateReceived" name="dateReceived" pattern="[0-9]+" placeholder="" required>
+
+				<label>Price:</label>
+				<input type="number" class="form-control" id="price" name="price" pattern="[A-Za-z0-9]{1,}" placeholder="" required>
+
+				<label>Quantity (gallons):</label>
+				<input type="number" class="form-control" id="quantityGallons" name="quantityGallons" pattern="[A-Za-z0-9]{1,}" placeholder="" required> 
+            </fieldset>
+
+            <!-- Create 'Add Invoice' and 'Cancel' buttons -->
+			<input type="submit" value="Add Invoice" name="Add_Invoice" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseInvoices()"> 
+        </form>
+	</div><!--insert-->
+</body>
+</html>
