@@ -70,7 +70,7 @@ def delete_wine(wineID):
 @app.route("/invoices", methods=["POST", "GET"])
 def invoices():
     # Separate out the request methods, in this case this is for a POST
-    # insert a new wine
+    # insert a new invoice
     if request.method == "POST":
         if request.form.get("Add_Invoice"):
 
@@ -86,10 +86,8 @@ def invoices():
             mysql.connection.commit()
 
 
-            # redirect back to people page
             return redirect("/invoices")
 
-    # Grab bsg_people data so we send it to our template to display
     if request.method == "GET":
         # mySQL query to grab all wines in Wines
         query = "SELECT invoiceID, wineID, dateReceived, price, quantityGallons FROM Invoices"
@@ -97,8 +95,20 @@ def invoices():
         cur.execute(query)
         data = cur.fetchall()
 
-        # render edit_people page passing our query data and homeworld data to the edit_people template
         return render_template("invoices.j2", data=data)
+
+    # route for delete invoice functionality
+@app.route("/delete_invoices/<int:invoiceID>")
+def delete_invoices(invoiceID):
+    # delete based on invoiceID value
+    query = "DELETE FROM Invoices WHERE invoiceID = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (wineID,))
+    mysql.connection.commit()
+
+    # redirect back to invoices
+    return redirect("/invoices")
+    
 
 ###### END route for invoices page ######
 
