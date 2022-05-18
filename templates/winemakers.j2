@@ -56,6 +56,9 @@
             {% if data %}
 			    <thead>
 				    <tr>
+            <!--Citation for the following lines of code (63 - 76) which creates a table of existing data:-->
+            <!--Date: 5/18/2022-->
+            <!--Adapted from osu-cs340-flask-starter app, Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app -->
                         {% for key in data[0].keys() %}
 					    
 					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
@@ -64,9 +67,8 @@
                     </tr>
 
 				<tbody>
-					<!-- Now, iterate through every item in data -->{% for item in data %}
+					{% for item in data %}
 					    <tr>
-						    <!-- Then iterate through every key in the current item dictionary -->
                             {% for key in item.keys() %}
 
 						    <td> {{item[key]}} </td> 
