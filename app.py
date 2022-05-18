@@ -168,5 +168,58 @@ def edit_winemaker(winemakerID):
             return redirect("/winemakers")
 
 
+# route for workOrders page
+@app.route("/workOrders", methods=["POST", "GET"])
+def workOrders():
+    # insert new workOrder
+    if request.method == "POST":
+        if request.form.get("Add_WorkOrder"):
+            task = request.form["task"]
+            winemakerID = request.form["winemakerID"]
+            dateOrdered = request.form["dateOrdered"]
+
+            # add data
+            query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s, %s,%s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (task, winemakerID, dateOrdered))
+            mysql.connection.commit()
+
+            return redirect("/workOrders")
+
+    # Display all workOrder data
+    if request.method == "GET":
+        query = "SELECT workOrderID, task, winemakerID, dateOrdered FROM WorkOrders"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        return render_template("workOrders.j2", data=data)
+
+
+# Edit a current workOrder based on workOrderID
+@app.route("/edit_workOrder/<int:workOrderID>", methods=["POST", "GET"])
+def edit_workOrder(workOrderID):
+    if request.method == "GET":
+        query = "SELECT * FROM WorkOrders WHERE workOrderID = %s" % (workOrderID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        return render_template("edit_workOrders.j2", data=data)
+
+    # Main update functionality, used if user clicks on the 'Edit Work Order' button
+    if request.method == "POST":
+        if request.form.get("edit_workOrder"):
+            # grab user form inputs
+            workOrderID = request.form["workOrderID"]
+            task = request.form["task"]
+            winemakerID = request.form["winemakerID"]
+            dateOrdered = request.form["dateOrdered"]
+
+            query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (task, winemakerID, dateOrdered, workOrderID))
+            mysql.connection.commit()
+            return redirect("/workOrders")
+
+
 if __name__ == "__main__":
     app.run(port=13227, debug=True)
