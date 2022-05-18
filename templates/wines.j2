@@ -94,10 +94,10 @@
 				<input type="number" class="form-control" id="vintage" name="vintage" pattern="[0-9]+" placeholder="" required>
 
 				<label>Vineyard:</label>
-				<input type="text" class="form-control" id="vineyard" name="vineyard" pattern="[A-Za-z0-9]{1,}" placeholder="" required>
+				<input type="text" class="form-control" id="vineyard" name="vineyard" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" placeholder="" required>
 
 				<label>Variety:</label>
-				<input type="text" class="form-control" id="variety" name="variety" pattern="[A-Za-z0-9]{1,}" placeholder="" required> 
+				<input type="text" class="form-control" id="variety" name="variety" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" placeholder="" required> 
             </fieldset>
 
             <!-- Create 'Add Wine' and 'Cancel' buttons -->
