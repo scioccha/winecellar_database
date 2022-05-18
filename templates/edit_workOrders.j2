@@ -1,0 +1,31 @@
+<html>
+<head>
+	<title>Edit Work Order</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+
+        <div id="edit">
+            <!-- form to edit data in workOrders-->
+            <form id="editWorkOrder" action="/edit_workOrder/{{data[0].workOrderID}}" method="post">
+                <legend><strong>Edit Work Order</strong></legend>
+                <fieldset>
+                    <input type="hidden" value="{{data[0].workOrderID}}" class="form-control" id="workOrderID" name="workOrderID" required>
+
+                    <label>Task:</label>
+                    <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="[A-Za-z]{1,}" required>
+
+                    <label>Winemaker ID:</label>
+                    <input type="number" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label>Date Ordered:</label>
+                    <input type="date" value="{{data[0].dateOrdered}}" class="form-control" id="dateOrdered" name="dateOrdered" pattern="\d{1,2}/\d{1,2}/\d{4}" required>
+
+                </fieldset>
+                <input type="submit" value="Submit Changes" name="edit_workOrder" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/workOrders'><input class="btn" type="button" value="Cancel"></a>
+            </form>
+
+</html>
