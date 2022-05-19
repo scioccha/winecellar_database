@@ -74,19 +74,28 @@ def invoices():
     if request.method == "POST":
         if request.form.get("Add_Invoice"):
 
+            if wineID != '':
             # grab user form inputs
-            wineID = request.form["wineID"]
-            dateReceived = request.form["dateReceived"]
-            price = request.form["price"]
-            quantityGallons = request.form["quantityGallons"]
+                wineID = request.form["wineID"]
+                dateReceived = request.form["dateReceived"]
+                price = request.form["price"]
+                quantityGallons = request.form["quantityGallons"]
 
-            # add data
-            query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (wineID, dateReceived, price, quantityGallons))
+                # add data
+                query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (wineID, dateReceived, price, quantityGallons))
+            else:
+                dateReceived = request.form["dateReceived"]
+                price = request.form["price"]
+                quantityGallons = request.form["quantityGallons"]
+
+                # add data
+                query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dateReceived, price, quantityGallons))
+           
             mysql.connection.commit()
-
-
             return redirect("/invoices")
 
     if request.method == "GET":
