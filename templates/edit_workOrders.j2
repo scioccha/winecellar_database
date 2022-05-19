@@ -18,7 +18,7 @@
                     <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
                     <label>Winemaker ID:</label>
-                    <input type="number" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[A-Za-z]{1,}" required>
+                    <input type="number" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[A-Za-z]{1,}">
                     
                     <label>Date Ordered:</label>
                     <input type="date" value="{{data[0].dateOrdered}}" class="form-control" id="dateOrdered" name="dateOrdered" pattern="\d{1,2}/\d{1,2}/\d{4}" required>
