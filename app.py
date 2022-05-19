@@ -240,7 +240,7 @@ def edit_workOrder(workOrderID):
             dateOrdered = request.form["dateOrdered"]
 
             if winemakerID == "":
-                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered, workOrderID))
                 mysql.connection.commit()
