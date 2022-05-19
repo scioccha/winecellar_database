@@ -73,13 +73,13 @@ def invoices():
     # insert a new invoice
     if request.method == "POST":
         if request.form.get("Add_Invoice"):
+            # grab user form inputs
+            wineID = request.form["wineID"]
+            dateReceived = request.form["dateReceived"]
+            price = request.form["price"]
+            quantityGallons = request.form["quantityGallons"]
 
             if wineID == "":
-                # grab user form inputs
-                dateReceived = request.form["dateReceived"]
-                price = request.form["price"]
-                quantityGallons = request.form["quantityGallons"]
-
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -87,12 +87,6 @@ def invoices():
                 mysql.connection.commit()
 
             else:
-                # grab user form inputs
-                wineID = request.form["wineID"]
-                dateReceived = request.form["dateReceived"]
-                price = request.form["price"]
-                quantityGallons = request.form["quantityGallons"]
-
                 # add data
                 query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -202,11 +196,18 @@ def workOrders():
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
 
-            # add data
-            query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s, %s,%s)"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (task, winemakerID, dateOrdered))
-            mysql.connection.commit()
+            if winemakerID == "":
+                # add data
+                query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s, %s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (task, winemakerID, dateOrdered))
+                mysql.connection.commit()
+            else:
+                # add data
+                query = "INSERT INTO WorkOrders (task, dateOrdered) VALUES (%s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (task, dateOrdered))
+                mysql.connection.commit()
 
             return redirect("/workOrders")
 
@@ -232,24 +233,19 @@ def edit_workOrder(workOrderID):
     # Main update functionality, used if user clicks on the 'Edit Work Order' button
     if request.method == "POST":
         if request.form.get("edit_workOrder"):
+            # grab user form inputs
+            workOrderID = request.form["workOrderID"]
+            task = request.form["task"]
+            winemakerID = request.form["winemakerID"]
+            dateOrdered = request.form["dateOrdered"]
 
             if winemakerID == "":
-                # grab user form inputs
-                workOrderID = request.form["workOrderID"]
-                task = request.form["task"]
-                dateOrdered = request.form["dateOrdered"]
-
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered, workOrderID))
                 mysql.connection.commit()
-            else:
-                                # grab user form inputs
-                workOrderID = request.form["workOrderID"]
-                task = request.form["task"]
-                winemakerID = request.form["winemakerID"]
-                dateOrdered = request.form["dateOrdered"]
 
+            else:
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, winemakerID, dateOrdered, workOrderID))
