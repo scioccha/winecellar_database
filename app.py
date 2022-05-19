@@ -22,7 +22,7 @@ def home():
     return redirect("/wines")
 
 
-###### route for wines page ######
+################# route for wines page ##################
 
 @app.route("/wines", methods=["POST", "GET"])
 def wines():
@@ -64,27 +64,40 @@ def delete_wine(wineID):
     # redirect back to wines
     return redirect("/wines")
 
-###### END route for wines page ######
+###################### END route for wines page ######################
 
 
-###### route for invoices page ######
+###################### route for invoices page #######################
 @app.route("/invoices", methods=["POST", "GET"])
 def invoices():
     # insert a new invoice
     if request.method == "POST":
         if request.form.get("Add_Invoice"):
 
-            # grab user form inputs
-            wineID = request.form["wineID"]
-            dateReceived = request.form["dateReceived"]
-            price = request.form["price"]
-            quantityGallons = request.form["quantityGallons"]
+            if wineID == "":
+                # grab user form inputs
+                dateReceived = request.form["dateReceived"]
+                price = request.form["price"]
+                quantityGallons = request.form["quantityGallons"]
 
-            # add data
-            query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (wineID, dateReceived, price, quantityGallons))
-            mysql.connection.commit()
+                # add data
+                query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (dateReceived, price, quantityGallons))
+                mysql.connection.commit()
+
+            else:
+                # grab user form inputs
+                wineID = request.form["wineID"]
+                dateReceived = request.form["dateReceived"]
+                price = request.form["price"]
+                quantityGallons = request.form["quantityGallons"]
+
+                # add data
+                query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (wineID, dateReceived, price, quantityGallons))
+                mysql.connection.commit()
 
 
             return redirect("/invoices")
@@ -109,12 +122,12 @@ def delete_invoices(invoiceID):
 
     return redirect("/invoices")
     
-###### END route for invoices page ######
+###################### END route for invoices page ##########################
 
 
 
 
-# route for winenakers page
+###################### route for winenakers page ############################
 @app.route("/winemakers", methods=["POST", "GET"])
 def winemakers():
     # insert new winemaker
@@ -176,8 +189,10 @@ def edit_winemaker(winemakerID):
             mysql.connection.commit()
             return redirect("/winemakers")
 
+############################## END route for winemakers page #######################
 
-# route for workOrders page
+
+############################## route for workOrders page ###########################
 @app.route("/workOrders", methods=["POST", "GET"])
 def workOrders():
     # insert new workOrder
@@ -217,18 +232,31 @@ def edit_workOrder(workOrderID):
     # Main update functionality, used if user clicks on the 'Edit Work Order' button
     if request.method == "POST":
         if request.form.get("edit_workOrder"):
-            # grab user form inputs
-            workOrderID = request.form["workOrderID"]
-            task = request.form["task"]
-            winemakerID = request.form["winemakerID"]
-            dateOrdered = request.form["dateOrdered"]
 
-            query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
-            cur = mysql.connection.cursor()
-            cur.execute(query, (task, winemakerID, dateOrdered, workOrderID))
-            mysql.connection.commit()
+            if winemakerID == "":
+                # grab user form inputs
+                workOrderID = request.form["workOrderID"]
+                task = request.form["task"]
+                dateOrdered = request.form["dateOrdered"]
+
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (task, dateOrdered, workOrderID))
+                mysql.connection.commit()
+            else:
+                                # grab user form inputs
+                workOrderID = request.form["workOrderID"]
+                task = request.form["task"]
+                winemakerID = request.form["winemakerID"]
+                dateOrdered = request.form["dateOrdered"]
+
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (task, winemakerID, dateOrdered, workOrderID))
+                mysql.connection.commit()
             return redirect("/workOrders")
 
+############################ END route for workorders page ################################
 
 if __name__ == "__main__":
     app.run(port=13227, debug=True)
