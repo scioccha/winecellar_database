@@ -19,10 +19,19 @@
 
                     <label>Winemaker ID:</label>
                     <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder=""> 
-                    {% for winemakerID in winemakerIDs %}
-                    <option value="{{winemakerID['winemakerID']}}" selected>{{winemakerID['winemakerID']}}</option>
-                
-                    {% endfor %} 
+                        <!-- Access our winemakerID tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for winemakerID in winemakerIDs %}
+                                <!-- If the value iterated winemakerID matches the value of the winemakerID of person currently Editing, pre-select that option -->
+                                {% if winemakerID['winemakerID'] == data[0].winemakerID %}
+                                    <option value="{{ winemakerID['winemakerID'] }}" selected>{{winemakerID['winemakerID']}}</option>
+                                {% else %}
+                                    <option value="{{ winemakerID['winemakerID'] }}">{{winemakerID['winemakerID']}}</option> 
+                                {% endif %}
+
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
                     </select>	
                     
                     <label>Date Ordered:</label>
