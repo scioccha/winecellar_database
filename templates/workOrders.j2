@@ -96,13 +96,15 @@
 
 				<label>Winemaker ID:</label>
           <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder="" required>
-          <option value="0">&nbsp;</option>
-          {% for winemakerID in winemakerIDs %}
-          <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
-          
-          {% endfor %}
 
-        </select>
+            <option value="0">&nbsp;</option>
+            {% for winemakerID in winemakerIDs %}
+            
+              <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
+          
+            {% endfor %}
+
+         </select>
 
 				<label>Date Ordered:</label>
 				<input type="date" class="form-control" id="dateOrdered" name="dateOrdered" pattern="\d{1,2}/\d{1,2}/\d{4}" placeholder="" required> 
