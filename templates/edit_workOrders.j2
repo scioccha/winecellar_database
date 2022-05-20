@@ -17,13 +17,15 @@
                     <label>Task:</label>
                     <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
-				<label>Winemaker ID:</label>
+                    <label>Winemaker ID:</label>
                     <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder="" required>
-                    <option value="0">&nbsp;</option>
-                    {% for winemakerID in winemakerIDs %}
-                    <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
-                    
-                    {% endfor %}
+
+                        <option value="0">&nbsp;</option>
+                        {% for winemakerID in winemakerIDs %}
+
+                            <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
+                        
+                        {% endfor %}
 
                     </select>
                     
