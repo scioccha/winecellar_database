@@ -18,7 +18,7 @@
                     <input type="text" value="{{data[0].task}}" class="form-control" id="task" name="task" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
                     <label>Winemaker ID:</label>
-                    <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder="" required> 
+                    <select class="form-control" id="winemakerID" name="winemakerID" value="{{ winemakerID['winemakerID'] }}" required> 
                         <option value="0">&nbsp;</option>
                             {% for winemakerID in winemakerIDs %}
                                 {% if winemakerID['winemakerID'] == data[0].winemakerID %}
