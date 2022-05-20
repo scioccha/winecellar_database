@@ -19,6 +19,22 @@
 
                     <label>Winemaker ID:</label>
                     <input type="number" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[A-Za-z]{1,}">
+
+                    <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder=""> 
+                        <!-- Access our winemakerID tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
+                        {% for winemakerID in winemakerID %}
+                                <!-- If the value iterated winemakerID matches the value of the winemakerID of person currently Editing, pre-select that option -->
+                                {% if winemakerID['winemakerID'] == data[0].winemakerID %}
+                                    <option value="{{ winemakerID['winemakerID'] }}" selected></option>
+                                {% else %}
+                                    <option value="{{ winemakerID['winemakerID'] }}"></option> 
+                                {% endif %}
+
+
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </select>	
                     
                     <label>Date Ordered:</label>
                     <input type="date" value="{{data[0].dateOrdered}}" class="form-control" id="dateOrdered" name="dateOrdered" pattern="\d{1,2}/\d{1,2}/\d{4}" required>
