@@ -74,8 +74,10 @@
                             {% endfor %}
 
                             <!-- Create edit button -->
-                 <td><a href="edit_workOrder/{{item.workOrderID}}" class="btn btn-default">Edit</a></td>
-                 <td><input type="checkbox"></td>
+                <td><a href="edit_workOrder/{{item.workOrderID}}" class="btn btn-default">Edit</a></td>
+                            <!-- Create our delete button -->
+				        <td><a href="delete_invoices/{{item.invoiceID}}" class="btn btn-default">Delete</a></td>
+                <td><input type="checkbox"></td>
 
 					    </tr> 
                         {% endfor %} 

@@ -252,6 +252,17 @@ def edit_workOrder(workOrderID):
                 mysql.connection.commit()
             return redirect("/workOrders")
 
+        # route for delete workOrder functionality
+@app.route("/delete_workOrder/<int:workOrderID>")
+def delete_workOrders(workOrderID):
+    # delete based on invoiceID value
+    query = "DELETE FROM WorkOrders WHERE workOrderID = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (workOrderID,))
+    mysql.connection.commit()
+
+    return redirect("/workOrders")
+
 ############################ END route for workorders page ################################
 
 if __name__ == "__main__":
