@@ -254,7 +254,7 @@ def edit_workOrder(workOrderID):
 
         # route for delete workOrder functionality
 @app.route("/delete_workOrder/<int:workOrderID>")
-def delete_workOrders(workOrderID):
+def delete_workOrder(workOrderID):
     # delete based on invoiceID value
     query = "DELETE FROM WorkOrders WHERE workOrderID = '%s';"
     cur = mysql.connection.cursor()
