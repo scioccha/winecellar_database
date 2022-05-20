@@ -222,9 +222,9 @@ def workOrders():
         query2 = "SELECT winemakerID FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
-        winemakerID = cur.fetchall()  
+        winemakerID_data = cur.fetchall()  
 
-        return render_template("workOrders.j2", data=data, winemakerID=winemakerID)
+        return render_template("workOrders.j2", data=data, winemakerIDs=winemakerID_data)
 
 # Edit a current workOrder based on workOrderID
 @app.route("/edit_workOrder/<int:workOrderID>", methods=["POST", "GET"])
