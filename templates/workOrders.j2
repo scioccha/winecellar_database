@@ -95,7 +95,7 @@
 				<input type="text" class="form-control" id="task" name="task" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" placeholder="" required>
 
 				<label>Winemaker ID:</label>
-				<select class="form-control" id="winemakerID" name="winemakerID" value="{{ winemakerID['winemakerID'] }}">
+				<select class="form-control" id="winemakerID" name="winemakerID" placeholder="">
           <option value="0">&nbsp;</option>
           {% for winemakerID in winemakerIDs %}
           <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
