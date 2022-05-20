@@ -234,7 +234,14 @@ def edit_workOrder(workOrderID):
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-        return render_template("edit_workOrders.j2", data=data)
+
+        # mySQL query to grab winemaker ids for our dropdown
+        query2 = "SELECT winemakerID FROM Winemakers;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        winemakerID_data = cur.fetchall()  
+
+        return render_template("workOrders.j2", data=data, winemakerIDs=winemakerID_data)
 
     # Main update functionality, used if user clicks on the 'Edit Work Order' button
     if request.method == "POST":
