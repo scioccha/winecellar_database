@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_pattersv'
-app.config['MYSQL_PASSWORD'] =  '7058'#last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_pattersv'
+app.config['MYSQL_USER'] = 'cs340_scioccha'
+app.config['MYSQL_PASSWORD'] = '0474'  # last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_scioccha'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -64,6 +64,7 @@ def delete_wine(wineID):
     # redirect back to wines
     return redirect("/wines")
 
+
 ###################### END route for wines page ######################
 
 
@@ -93,7 +94,6 @@ def invoices():
                 cur.execute(query, (wineID, dateReceived, price, quantityGallons))
                 mysql.connection.commit()
 
-
             return redirect("/invoices")
 
     if request.method == "GET":
@@ -106,6 +106,8 @@ def invoices():
         return render_template("invoices.j2", data=data)
 
     # route for delete invoice functionality
+
+
 @app.route("/delete_invoices/<int:invoiceID>")
 def delete_invoices(invoiceID):
     # delete based on invoiceID value
@@ -115,10 +117,9 @@ def delete_invoices(invoiceID):
     mysql.connection.commit()
 
     return redirect("/invoices")
-    
+
+
 ###################### END route for invoices page ##########################
-
-
 
 
 ###################### route for winenakers page ############################
@@ -183,6 +184,7 @@ def edit_winemaker(winemakerID):
             mysql.connection.commit()
             return redirect("/winemakers")
 
+
 ############################## END route for winemakers page #######################
 
 
@@ -213,7 +215,7 @@ def workOrders():
 
     # Display all workOrder data
     if request.method == "GET":
-        query = "SELECT workOrderID, task, winemakerID, dateOrdered FROM WorkOrders"
+        query = "SELECT workOrderID, task, WorkOrders.winemakerID, Winemakers.firstName, Winemakers.lastName, dateOrdered FROM WorkOrders INNER JOIN Winemakers ON Winemakers.winemakerID = WorkOrders.winemakerID"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -222,9 +224,10 @@ def workOrders():
         query2 = "SELECT winemakerID FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
-        winemakerID_data = cur.fetchall()  
+        winemakerID_data = cur.fetchall()
 
         return render_template("workOrders.j2", data=data, winemakerIDs=winemakerID_data)
+
 
 # Edit a current workOrder based on workOrderID
 @app.route("/edit_workOrder/<int:workOrderID>", methods=["POST", "GET"])
@@ -239,7 +242,7 @@ def edit_workOrder(workOrderID):
         query2 = "SELECT winemakerID FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
-        winemakerID_data = cur.fetchall()  
+        winemakerID_data = cur.fetchall()
 
         return render_template("workOrders.j2", data=data, winemakerIDs=winemakerID_data)
 
@@ -266,6 +269,8 @@ def edit_workOrder(workOrderID):
             return redirect("/workOrders")
 
         # route for delete workOrder functionality
+
+
 @app.route("/delete_workOrder/<int:workOrderID>")
 def delete_workOrder(workOrderID):
     # delete based on invoiceID value
@@ -276,7 +281,8 @@ def delete_workOrder(workOrderID):
 
     return redirect("/workOrders")
 
+
 ############################ END route for workorders page ################################
 
 if __name__ == "__main__":
-    app.run(port=13227, debug=True)
+    app.run(port=5227, debug=True)
