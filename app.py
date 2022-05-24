@@ -200,15 +200,15 @@ def workOrders():
 
             if winemakerID == "":
                 # add data
-                query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s, %s,%s)"
-                cur = mysql.connection.cursor()
-                cur.execute(query, (task, winemakerID, dateOrdered))
-                mysql.connection.commit()
-            else:
-                # add data
                 query = "INSERT INTO WorkOrders (task, dateOrdered) VALUES (%s,%s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered))
+                mysql.connection.commit()
+            else:
+                # add data
+                query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s,%s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query, (task, winemakerID, dateOrdered))
                 mysql.connection.commit()
 
             return redirect("/workOrders")
