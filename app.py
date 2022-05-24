@@ -334,5 +334,28 @@ def delete_winemaker_details(wineID, winemakerID):
     # redirect back to wines
     return redirect("/winemaker_details")
 
+@app.route("/edit_winemaker_details/<int:winemakerDetailsID>", methods=["POST", "GET"])
+def edit_winemaker_details(winemakerDetailsID):
+    if request.method == "GET":
+        query = "SELECT * FROM Winemaker_Details WHERE winemakerDetailsID = %s" % (winemakerDetailsID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        return render_template("edit_winemaker_details.j2", data=data)
+
+    # Main update functionality, used if user clicks on the 'Edit Winemaker' button
+    if request.method == "POST":
+        if request.form.get("Edit_Winemaker_Details"):
+            # grab user form inputs
+            winemakerDetailsID = request.form["winemakerDetailsID"]
+            winemakerID = request.form["winemakerID"]
+            wineID = request.form["wineID"]
+
+            query = "UPDATE Winemaker_Details SET Winemaker_Details.winemakerID = %s, Winemaker_Details.wineID = %s WHERE Winemaker_Details.winemakerDetailsID = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (winemakerID, wineID, winemakerDetailsID))
+            mysql.connection.commit()
+            return redirect("/winemaker_details")
+
 if __name__ == "__main__":
     app.run(port=5227, debug=True)
