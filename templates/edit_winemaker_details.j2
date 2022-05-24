@@ -1,0 +1,28 @@
+<html>
+<head>
+	<title>Edit Winemaker Details</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+
+        <div id="edit">
+            <!-- form to edit data in winemaker details-->
+            <form id="editDetails" action="/edit_winemaker_details/{{data[0].winemakerDetailsID}}" method="post">
+                <legend><strong>Edit Winemaker Details</strong></legend>
+                <fieldset>
+                    <input type="hidden" value="{{data[0].winemakerDetailsID}}" class="form-control" id="winemakerDetailsID" name="winemakerDetailsID" required>
+
+                    <label>winemaker ID:</label>
+                    <input type="text" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" required>
+
+                    <label>wine ID:</label>
+                    <input type="text" value="{{data[0].wineID}}" class="form-control" id="wineID" name="wineID" pattern="[0-9]+" required>
+
+                </fieldset>
+                <input type="submit" value="Submit Changes" name="Edit_Winemaker_Details" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/winemaker_details'><input class="btn" type="button" value="Cancel"></a>
+            </form>
+
+</html>
