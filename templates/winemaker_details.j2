@@ -89,18 +89,34 @@
 	<div id="insert">
 		<!-- form to INSERT new data into winemaker_details-->
 		<form id="insertDetails" action="/winemaker_details" method="post">
-			<legend><strong>Add Winemaker</strong></legend>
+			<legend><strong>Add Winemaker Details</strong></legend>
 			<fieldset>
 				<label>Winemaker ID:</label>
-				<input type="text" class="form-control" id="winemakerID" name="winemakerID" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+                    <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder="" required>
+                        <option value="0">&nbsp;</option>
+                        {% for winemakerID in winemakerIDs %}
+                        
+                        <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
+                    
+                        {% endfor %}
+
+                    </select>
 
 				<label>Wine ID:</label>
-				<input type="text" class="form-control" id="wineID" name="wineID" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+                    <select class="form-control" id="wineID" name="wineID" pattern="[0-9]+" placeholder="" required>
+                        <option value="0">&nbsp;</option>
+                        {% for wineID in wineIDs %}
+                        
+                        <option value="{{wineID['wineID']}}">{{wineID['wineID']}}</option>
+                    
+                        {% endfor %}
+
+                    </select>
 
 				   </fieldset>
 
             <!-- Create 'Add Winemaker Details' and 'Cancel' buttons -->
-			<input type="submit" value="Add Winemaker Details" name="Add_Winemaker_Details" class="btn btn-primary" style="margin:.5rem;">
+			<input type="submit" value="Add Winemaker Details" name="Add_Details" class="btn btn-primary" style="margin:.5rem;">
 			<input class="btn" type="button" value="Cancel" onClick="browseWinemakers()"> 
         </form>
 	</div><!--insert-->
