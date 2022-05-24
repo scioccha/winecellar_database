@@ -284,5 +284,32 @@ def delete_workOrder(workOrderID):
 
 ############################ END route for workorders page ################################
 
+############################## route for Winemaker Details page ###########################
+
+@app.route("/winemaker_details", methods=["POST", "GET"])
+def winemaker_details():
+    # insert a assignment
+    if request.method == "POST":
+        if request.form.get("Add_Details"):
+            # grab user form inputs
+            winemakerID = request.form["winemakerID"]
+            wineID = request.form["wineID"]
+
+            # add data
+            query = "INSERT INTO Winemaker_Details (winemakerID, wineID) VALUES (%s, %s)"
+            cur = mysql.connection.cursor()
+            cur.execute(query, (winemakerID, wineID))
+            mysql.connection.commit()
+
+            return redirect("/winemaker_details")
+
+    # display all winemaker_details including first and last name, vineyard and variety of wine
+    if request.method == "GET":
+        query = "SELECT Winemakers.firstName, Winemakers.lastName, Wines.variety, Wines.vineyard, Winemaker_Details.winemakerID, Winemaker_Details.wineID FROM Winemaker_Details INNER JOIN Winemakers ON Winemakers.winemakerID = Winemaker_Details.winemakerID INNER JOIN Wines ON Wines.wineID = Winemaker_Details.wineID;"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        return render_template("winemaker_details.j2", data=data)
+
 if __name__ == "__main__":
     app.run(port=5227, debug=True)
