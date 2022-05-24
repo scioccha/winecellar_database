@@ -122,7 +122,7 @@ def delete_invoices(invoiceID):
 ###################### END route for invoices page ##########################
 
 
-###################### route for winenakers page ############################
+###################### route for winemakers page ############################
 @app.route("/winemakers", methods=["POST", "GET"])
 def winemakers():
     # insert new winemaker
@@ -244,7 +244,7 @@ def edit_workOrder(workOrderID):
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
 
-        return render_template("workOrders.j2", data=data, winemakerIDs=winemakerID_data)
+        return render_template("edit_workOrders.j2", data=data, winemakerIDs=winemakerID_data)
 
     # Main update functionality, used if user clicks on the 'Edit Work Order' button
     if request.method == "POST":
@@ -311,13 +311,13 @@ def winemaker_details():
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID FROM Winemakers;"
+        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query3 = "SELECT wineID FROM Wines;"
+        query3 = "SELECT wineID, vintage, variety FROM Wines;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         wineID_data = cur.fetchall()
