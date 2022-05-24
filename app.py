@@ -98,7 +98,7 @@ def invoices():
 
     if request.method == "GET":
         # mySQL query to grab all invoices in Invoices
-        query = "SELECT invoiceID, wineID, dateReceived, price, quantityGallons FROM Invoices"
+        query = "SELECT invoiceID, Wines.wineID, dateReceived, price, quantityGallons, Wines.vineyard, Wines.Variety FROM Invoices INNER JOIN Wines ON Wines.wineID = Invoices.wineID;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
