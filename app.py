@@ -309,7 +309,20 @@ def winemaker_details():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-        return render_template("winemaker_details.j2", data=data)
+
+        # mySQL query to grab winemaker ids for our dropdown
+        query2 = "SELECT winemakerID FROM Winemakers;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        winemakerID_data = cur.fetchall()
+
+        # mySQL query to grab winemaker ids for our dropdown
+        query3 = "SELECT wineID FROM Wines;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        wineID_data = cur.fetchall()
+
+        return render_template("winemaker_details.j2", data=data, winemakerIDs=winemakerID_data, wineIDs=wineID_data)
 
 if __name__ == "__main__":
     app.run(port=5227, debug=True)
