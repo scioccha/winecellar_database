@@ -345,7 +345,20 @@ def edit_winemaker_details(winemakerDetailsID):
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-        return render_template("edit_winemaker_details.j2", data=data)
+
+        # mySQL query to grab winemaker ids for our dropdown
+        query2 = "SELECT winemakerID FROM Winemakers;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        winemakerID_data = cur.fetchall()
+
+        # mySQL query to grab winemaker ids for our dropdown
+        query3 = "SELECT wineID FROM Wines;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        wineID_data = cur.fetchall()
+
+        return render_template("edit_winemaker_details.j2", data=data, winemakerIDs = winemakerID_data, wineIDs = wineID_data)
 
     # Main update functionality, used if user clicks on the 'Edit Winemaker' button
     if request.method == "POST":
