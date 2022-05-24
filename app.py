@@ -324,5 +324,15 @@ def winemaker_details():
 
         return render_template("winemaker_details.j2", data=data, winemakerIDs=winemakerID_data, wineIDs=wineID_data)
 
+@app.route("/delete_winemaker_details/<int:wineID>/<int:winemakerID>")
+def delete_winemaker_details(wineID, winemakerID):
+    query = "DELETE FROM Winemaker_Details WHERE wineID = '%s' AND winemakerID = '%s';"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (wineID, winemakerID,))
+    mysql.connection.commit()
+
+    # redirect back to wines
+    return redirect("/winemaker_details")
+
 if __name__ == "__main__":
     app.run(port=5227, debug=True)
