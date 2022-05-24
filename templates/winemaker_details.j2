@@ -1,0 +1,109 @@
+<html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Winemakers</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script language="JavaScript">
+    function showform(dowhat) {
+      if (dowhat == 'insert'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'update'){
+    	document.getElementById('browse').style.display = 'none';
+    	document.getElementById('insert').style.display = 'none';
+    	document.getElementById('update').style.display = 'block';
+    	document.getElementById('delete').style.display = 'none';
+    }
+    else if (dowhat == 'delete'){
+      document.getElementById('browse').style.display = 'none';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else if (dowhat == 'all'){
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'block';
+      document.getElementById('update').style.display = 'block';
+      document.getElementById('delete').style.display = 'block';
+    }
+    else { //by default display browse
+      document.getElementById('browse').style.display = 'block';
+      document.getElementById('insert').style.display = 'none';
+      document.getElementById('update').style.display = 'none';
+      document.getElementById('delete').style.display = 'none';
+    }
+  }
+  function newDetails() { showform('insert'); }
+  function updateDetails(pid) { showform('update'); }
+  function deleteDetails(pid) { showform ('delete'); }
+  function browseDetails() { showform ('browse'); }
+  function showAll() { showform ('all');
+  }
+</script>
+</head>
+
+<body onload="browseDetails()">
+  <h1>CellarTracker</h1>
+	[ <a href="wines">Wines</a> | <a href="winemakers">Winemakers</a> | <a href="winemaker_details">Winemaker Details</a> | <a href="workOrders">Work Orders</a> | <a href="invoices">Invoices</a> ]
+	<div id="browse">
+		<p><a href="#" onClick="newDetails()">Add New Winemaker Details</a> </p>
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+            <!--Citation for the following lines of code (63 - 76) which creates a table of existing data:-->
+            <!--Date: 5/18/2022-->
+            <!--Adapted from osu-cs340-flask-starter app, Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app -->
+                        {% for key in data[0].keys() %}
+					    
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+					
+                        {% endfor %} 
+                    </tr>
+
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+                            <!-- Create edit and delete buttons -->
+                 <td><a href="edit_winemaker_details/{{item.winemakerID}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_winemaker_details/{{item.winemakerID}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+	<div id="insert">
+		<!-- form to INSERT new data into winemaker_details-->
+		<form id="insertDetails" action="/winemaker_details" method="post">
+			<legend><strong>Add Winemaker</strong></legend>
+			<fieldset>
+				<label>Winemaker ID:</label>
+				<input type="text" class="form-control" id="winemakerID" name="winemakerID" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+
+				<label>Wine ID:</label>
+				<input type="text" class="form-control" id="wineID" name="wineID" pattern="^(0|[1-9][0-9]*)$" placeholder="" required>
+
+				   </fieldset>
+
+            <!-- Create 'Add Winemaker Details' and 'Cancel' buttons -->
+			<input type="submit" value="Add Winemaker Details" name="Add_Winemaker_Details" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel" onClick="browseWinemakers()"> 
+        </form>
+	</div><!--insert-->
+	
+</body>
+</html>
