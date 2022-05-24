@@ -103,11 +103,15 @@ def invoices():
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("invoices.j2", data=data)
+        # mySQL query to grab winemaker ids for our dropdown
+        query2 = "SELECT wineID FROM Wines;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        wineID_data = cur.fetchall()
 
-    # route for delete invoice functionality
+        return render_template("invoices.j2", data=data, wineIDs=wineID_data)
 
-
+# route for delete invoice functionality
 @app.route("/delete_invoices/<int:invoiceID>")
 def delete_invoices(invoiceID):
     # delete based on invoiceID value
