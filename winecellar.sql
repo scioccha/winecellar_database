@@ -29,26 +29,24 @@ CREATE TABLE Winemaker_Details(
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL AUTO_INCREMENT,
-    wineID INT(11) NULL,
+    wineID INT(11),
     dateReceived DATE NOT NULL,
     price decimal(19,2),
     quantityGallons INT(11),
     PRIMARY KEY(invoiceID),
     FOREIGN KEY (wineID) REFERENCES Wines(wineID)
     ON DELETE SET NULL
-    
 );
 
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL AUTO_INCREMENT,
     task VARCHAR(400) NOT NULL,
-    winemakerID INT(11) NULL,
+    winemakerID INT(11),
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete',
     PRIMARY KEY(workOrderID),
     FOREIGN KEY (winemakerID) REFERENCES Winemakers(winemakerID)
     ON DELETE SET NULL
-    ON UPDATE SET NULL
 );
 
 --
