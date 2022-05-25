@@ -79,10 +79,8 @@ def invoices():
             dateReceived = request.form["dateReceived"]
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
-
-            if wineID == "":
+            if wineID is None:
                 # add data
-                print('reached null')
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (dateReceived, price, quantityGallons))
@@ -103,7 +101,6 @@ def invoices():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
-
         # mySQL query to grab winemaker ids for our dropdown
         query2 = "SELECT wineID FROM Wines;"
         cur = mysql.connection.cursor()
