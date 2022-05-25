@@ -29,7 +29,7 @@ CREATE TABLE Winemaker_Details(
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL AUTO_INCREMENT,
-    wineID INT(11),
+    wineID INT(11) NULL,
     dateReceived DATE NOT NULL,
     price decimal(19,2),
     quantityGallons INT(11),
@@ -41,7 +41,7 @@ CREATE TABLE Invoices(
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL AUTO_INCREMENT,
     task VARCHAR(400) NOT NULL,
-    winemakerID INT(11),
+    winemakerID INT(11) NULL,
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete',
     PRIMARY KEY(workOrderID),
