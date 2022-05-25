@@ -376,4 +376,4 @@ def edit_winemaker_details(winemakerDetailsID):
             return redirect("/winemaker_details")
 
 if __name__ == "__main__":
-    app.run(port=5227, debug=True)
+    app.run(host='0.0.0.0',port=5227, debug=True)
