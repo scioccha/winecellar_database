@@ -35,7 +35,7 @@ CREATE TABLE Invoices(
     quantityGallons INT(11),
     PRIMARY KEY(invoiceID),
     FOREIGN KEY (wineID) REFERENCES Wines(wineID)
-    ON DELETE SET NULL,
+    ON DELETE SET NULL
     ON UPDATE SET NULL
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE WorkOrders(
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete',
     PRIMARY KEY(workOrderID),
     FOREIGN KEY (winemakerID) REFERENCES Winemakers(winemakerID)
-    ON DELETE SET NULL,
+    ON DELETE SET NULL
     ON UPDATE SET NULL
 );
 
