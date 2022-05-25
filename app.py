@@ -82,6 +82,7 @@ def invoices():
 
             if wineID == "":
                 # add data
+                print('reached null')
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (dateReceived, price, quantityGallons))
