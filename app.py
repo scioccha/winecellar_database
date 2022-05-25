@@ -202,7 +202,7 @@ def workOrders():
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
 
-            if winemakerID == "":
+            if winemakerID == "" or winemakerID == "0" or winemakerID == "None":
                 # add data
                 query = "INSERT INTO WorkOrders (task, dateOrdered) VALUES (%s,%s)"
                 cur = mysql.connection.cursor()
@@ -259,7 +259,7 @@ def edit_workOrder(workOrderID):
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
 
-            if winemakerID == "":
+            if winemakerID == "" or winemakerID == "0" or winemakerID == "None":
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered, workOrderID))
