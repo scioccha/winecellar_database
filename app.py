@@ -219,7 +219,7 @@ def workOrders():
 
     # Display all workOrder data
     if request.method == "GET":
-        query = "SELECT workOrderID, task, WorkOrders.winemakerID, Winemakers.firstName, Winemakers.lastName, dateOrdered FROM WorkOrders INNER JOIN Winemakers ON Winemakers.winemakerID = WorkOrders.winemakerID"
+        query = "SELECT workOrderID, task, WorkOrders.winemakerID, Winemakers.firstName, Winemakers.lastName, dateOrdered, status FROM WorkOrders INNER JOIN Winemakers ON Winemakers.winemakerID = WorkOrders.winemakerID"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -258,17 +258,18 @@ def edit_workOrder(workOrderID):
             task = request.form["task"]
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
+            status = request.form['status']
 
             if winemakerID == "":
-                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (task, dateOrdered, workOrderID))
+                cur.execute(query, (task, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
 
             else:
-                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (task, winemakerID, dateOrdered, workOrderID))
+                cur.execute(query, (task, winemakerID, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
             return redirect("/workOrders")
 
