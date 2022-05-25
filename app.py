@@ -259,7 +259,7 @@ def edit_workOrder(workOrderID):
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
 
-            if winemakerID == "0":
+            if winemakerID == "":
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered, workOrderID))
