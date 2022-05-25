@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_pattersv'
-app.config['MYSQL_PASSWORD'] = '7058'  # last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_pattersv'
+app.config['MYSQL_USER'] = 'cs340_scioccha'
+app.config['MYSQL_PASSWORD'] = '0474'  # last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_scioccha'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -79,7 +79,8 @@ def invoices():
             dateReceived = request.form["dateReceived"]
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
-            if wineID is None:
+
+            if wineID == "":
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -101,6 +102,7 @@ def invoices():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
+
         # mySQL query to grab winemaker ids for our dropdown
         query2 = "SELECT wineID FROM Wines;"
         cur = mysql.connection.cursor()
@@ -307,30 +309,30 @@ def winemaker_details():
 
     # display all winemaker_details including first and last name, vineyard and variety of wine
     if request.method == "GET":
-        query = "SELECT Winemakers.firstName, Winemakers.lastName, Wines.variety, Wines.vineyard, Winemaker_Details.winemakerID, Winemaker_Details.wineID FROM Winemaker_Details INNER JOIN Winemakers ON Winemakers.winemakerID = Winemaker_Details.winemakerID INNER JOIN Wines ON Wines.wineID = Winemaker_Details.wineID;"
+        query = "SELECT Winemaker_Details.winemakerDetailsID, Winemakers.firstName, Winemakers.lastName, Wines.variety, Wines.vineyard, Winemaker_Details.winemakerID, Winemaker_Details.wineID FROM Winemaker_Details INNER JOIN Winemakers ON Winemakers.winemakerID = Winemaker_Details.winemakerID INNER JOIN Wines ON Wines.wineID = Winemaker_Details.wineID;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
+        query2 = "SELECT winemakerID FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query3 = "SELECT wineID, vintage, variety FROM Wines;"
+        query3 = "SELECT wineID FROM Wines;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         wineID_data = cur.fetchall()
 
         return render_template("winemaker_details.j2", data=data, winemakerIDs=winemakerID_data, wineIDs=wineID_data)
 
-@app.route("/delete_winemaker_details/<int:wineID>/<int:winemakerID>")
-def delete_winemaker_details(wineID, winemakerID):
-    query = "DELETE FROM Winemaker_Details WHERE wineID = '%s' AND winemakerID = '%s';"
+@app.route("/delete_winemaker_details/<int:winemakerDetailsID>")
+def delete_winemaker_details(winemakerDetailsID):
+    query = "DELETE FROM Winemaker_Details WHERE winemakerDetailsID = '%s';"
     cur = mysql.connection.cursor()
-    cur.execute(query, (wineID, winemakerID,))
+    cur.execute(query, (winemakerDetailsID,))
     mysql.connection.commit()
 
     # redirect back to wines
@@ -373,4 +375,4 @@ def edit_winemaker_details(winemakerDetailsID):
             return redirect("/winemaker_details")
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=5227, debug=True)
+    app.run(port=5227, debug=True)
