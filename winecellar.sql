@@ -29,7 +29,7 @@ CREATE TABLE Winemaker_Details(
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL AUTO_INCREMENT,
-    wineID INT(11),
+    wineID INT(11) NULL,
     dateReceived DATE NOT NULL,
     price decimal(19,2),
     quantityGallons INT(11),
