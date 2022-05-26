@@ -41,12 +41,13 @@ CREATE TABLE Invoices(
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL AUTO_INCREMENT,
     task VARCHAR(400) NOT NULL,
-    winemakerID INT(11),
+    winemakerID INT(11) NULL,
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete',
     PRIMARY KEY(workOrderID),
     FOREIGN KEY (winemakerID) REFERENCES Winemakers(winemakerID)
     ON DELETE SET NULL
+    ON UPDATE SET NULL
 );
 
 --
