@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE Wines(
-    wineID INT(11) NOT NULL AUTO_INCREMENT,
+    wineID INT(11) AUTO_INCREMENT,
     vintage year(4) NOT NULL,
     vineyard VARCHAR(45) NOT NULL,
     variety VARCHAR(45) NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE Wines(
 );
 
 CREATE TABLE Winemakers(
-    winemakerID INT(11) NOT NULL AUTO_INCREMENT,
+    winemakerID INT(11) AUTO_INCREMENT,
     firstName VARCHAR(45) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     location VARCHAR(45) NOT NULL,
