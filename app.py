@@ -19,7 +19,7 @@ mysql = MySQL(app)
 # Homepage routes to /wines page
 @app.route("/")
 def home():
-    return redirect("/wines")
+    return render_template("index.html")
 
 
 ################# route for wines page ##################
