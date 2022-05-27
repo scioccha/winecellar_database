@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_scioccha'
-app.config['MYSQL_PASSWORD'] = '0474'  # last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_scioccha'
+app.config['MYSQL_USER'] = 'cs340_pattersv'
+app.config['MYSQL_PASSWORD'] = '7058'  # last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_pattersv'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -45,10 +45,17 @@ def wines():
 
     # display wines using query to grab all wines in Wines
     if request.method == "GET":
-        query = "SELECT wineID, vintage, vineyard, variety FROM Wines"
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        data = cur.fetchall()
+        search_query = request.query_string.decode()
+        if search_query:
+            query = f"SELECT * FROM Wines WHERE MATCH (vintage, vineyard, variety) AGAINST ('{search_query[2:]}' IN NATURAL LANGUAGE MODE);"
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            data = cur.fetchall()
+        else:
+            query1 = "SELECT wineID, vintage, vineyard, variety FROM Wines"
+            cur = mysql.connection.cursor()
+            cur.execute(query1)
+            data = cur.fetchall()
         return render_template("wines.j2", data=data)
 
 
@@ -259,7 +266,6 @@ def edit_workOrder(workOrderID):
             winemakerID = request.form["winemakerID"]
             dateOrdered = request.form["dateOrdered"]
             status = request.form['status']
-
             if winemakerID == "":
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
