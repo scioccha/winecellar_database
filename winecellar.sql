@@ -5,7 +5,7 @@ CREATE TABLE Wines(
     vintage year(4) NOT NULL,
     vineyard VARCHAR(45) NOT NULL,
     variety VARCHAR(45) NOT NULL,
-    FULLTEXT (vintage, vineyard, variety),
+    FULLTEXT (vineyard, variety),
     PRIMARY KEY(wineID)
 );
 
