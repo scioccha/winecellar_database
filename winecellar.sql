@@ -7,7 +7,7 @@ CREATE TABLE Wines(
     variety VARCHAR(45) NOT NULL,
     FULLTEXT (vineyard, variety),
     PRIMARY KEY(wineID)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE Winemakers(
     winemakerID INT(11) AUTO_INCREMENT,
@@ -15,7 +15,7 @@ CREATE TABLE Winemakers(
     lastName VARCHAR(45) NOT NULL,
     location VARCHAR(45) NOT NULL,
     PRIMARY KEY(winemakerID)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE Winemaker_Details(
     winemakerDetailsID INT(11) NOT NULL AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE Winemaker_Details(
     ON DELETE CASCADE,
     FOREIGN KEY (wineID) REFERENCES Wines(wineID)
     ON DELETE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL AUTO_INCREMENT,
@@ -36,7 +36,7 @@ CREATE TABLE Invoices(
     quantityGallons INT(11),
     PRIMARY KEY(invoiceID),
     CONSTRAINT wineID_FK FOREIGN KEY (wineID) REFERENCES Wines(wineID)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL AUTO_INCREMENT,
@@ -46,7 +46,7 @@ CREATE TABLE WorkOrders(
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete',
     PRIMARY KEY(workOrderID),
     CONSTRAINT winemakerID_FK FOREIGN KEY (winemakerID) REFERENCES Winemakers(winemakerID)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Add Data 
