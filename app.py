@@ -47,7 +47,7 @@ def wines():
     if request.method == "GET":
         search_query = request.query_string.decode()
         if search_query:
-            query = f"SELECT * FROM Wines WHERE MATCH (vintage, vineyard, variety) AGAINST ('{search_query[2:]}' IN NATURAL LANGUAGE MODE);"
+            query = f"SELECT * FROM Wines WHERE MATCH (vineyard, variety) AGAINST ('{search_query[2:]}' IN NATURAL LANGUAGE MODE);"
             cur = mysql.connection.cursor()
             cur.execute(query)
             data = cur.fetchall()
