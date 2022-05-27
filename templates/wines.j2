@@ -50,11 +50,13 @@
 
 <body onload="browseWines()">
 	<h1>CellarTracker</h1> [ <a href="wines">Wines</a> | <a href="winemakers">Winemakers</a> | <a href="winemaker_details">Winemaker Details</a> | <a href="workOrders">Work Orders</a> | <a href="invoices">Invoices</a> ]
-	<div id="browse">
-		<p><a href="#" onClick="newWine()">Add New Wine</a>   <form id="search">
-    <input type="search" name="q" placeholder="Search Wines..." id="searchWines">
+	<div id="browse"> 
+    <p>Search by Vineyard or Variety:</p> 
+    <form id="search">
+    <input type="search" name="q" placeholder="Search..." id="searchWines">
     <button>Search</button>
 </form></p>
+<p><a href="#" onClick="newWine()">Add New Wine</a> <p></p>
 		<table border="1" cellpadding="5">
             <!-- Access data tuple passed from app.py --> 
             {% if data %}
