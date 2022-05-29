@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_pattersv'
-app.config['MYSQL_PASSWORD'] = '7058'  # last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_pattersv'
+app.config['MYSQL_USER'] = 'cs340_scioccha'
+app.config['MYSQL_PASSWORD'] = '0474'  # last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_scioccha'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -82,12 +82,12 @@ def invoices():
     if request.method == "POST":
         if request.form.get("Add_Invoice"):
             # grab user form inputs
-            wineID = request.form["wineID"]
+            wineType = request.form["wineType"]
             dateReceived = request.form["dateReceived"]
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
 
-            if wineID == "":
+            if wineType == "":
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -96,16 +96,16 @@ def invoices():
 
             else:
                 # add data
-                query = "INSERT INTO Invoices (wineID, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
+                query = "INSERT INTO Invoices (wineType, dateReceived, price, quantityGallons) VALUES (%s, %s, %s,%s)"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (wineID, dateReceived, price, quantityGallons))
+                cur.execute(query, (wineType, dateReceived, price, quantityGallons))
                 mysql.connection.commit()
 
             return redirect("/invoices")
 
     if request.method == "GET":
         # mySQL query to grab all invoices in Invoices
-        query = "SELECT invoiceID, Wines.wineID, dateReceived, price, quantityGallons, Wines.vineyard, Wines.Variety FROM Invoices INNER JOIN Wines ON Wines.wineID = Invoices.wineID;"
+        query = "SELECT invoiceID, Wines.wineID, dateReceived, price, quantityGallons, Wines.vineyard, Wines.Variety AS wineType FROM Invoices LEFT JOIN Wines ON wineType = Wines.wineID;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -206,10 +206,10 @@ def workOrders():
     if request.method == "POST":
         if request.form.get("Add_WorkOrder"):
             task = request.form["task"]
-            winemakerID = request.form["winemakerID"]
+            winemaker = request.form["winemaker"]
             dateOrdered = request.form["dateOrdered"]
 
-            if winemakerID == "":
+            if winemaker == "":
                 # add data
                 query = "INSERT INTO WorkOrders (task, dateOrdered) VALUES (%s,%s)"
                 cur = mysql.connection.cursor()
@@ -217,16 +217,16 @@ def workOrders():
                 mysql.connection.commit()
             else:
                 # add data
-                query = "INSERT INTO WorkOrders (task, winemakerID, dateOrdered) VALUES (%s,%s, %s)"
+                query = "INSERT INTO WorkOrders (task, winemaker, dateOrdered) VALUES (%s,%s, %s)"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (task, winemakerID, dateOrdered))
+                cur.execute(query, (task, winemaker, dateOrdered))
                 mysql.connection.commit()
 
             return redirect("/workOrders")
 
     # Display all workOrder data
     if request.method == "GET":
-        query = "SELECT workOrderID, task, WorkOrders.winemakerID, Winemakers.firstName, Winemakers.lastName, dateOrdered, status FROM WorkOrders INNER JOIN Winemakers ON Winemakers.winemakerID = WorkOrders.winemakerID"
+        query = "SELECT workOrderID, task, Winemakers.winemakerID, Winemakers.firstName, Winemakers.lastName, dateOrdered, status AS winemaker FROM WorkOrders LEFT JOIN Winemakers ON winemaker = Winemakers.winemakerID;"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -263,11 +263,11 @@ def edit_workOrder(workOrderID):
             # grab user form inputs
             workOrderID = request.form["workOrderID"]
             task = request.form["task"]
-            winemakerID = request.form["winemakerID"]
+            winemaker = request.form["winemaker"]
             dateOrdered = request.form["dateOrdered"]
             status = request.form['status']
-            if winemakerID == "":
-                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = NULL, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
+            if winemaker == "":
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemaker = NULL, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
@@ -275,7 +275,7 @@ def edit_workOrder(workOrderID):
             else:
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (task, winemakerID, dateOrdered, status, workOrderID))
+                cur.execute(query, (task, winemaker, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
             return redirect("/workOrders")
 
