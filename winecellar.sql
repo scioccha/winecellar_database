@@ -4,7 +4,7 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 CREATE TABLE Wines (
-   wineID int(11),
+   wineID int(11) DEFAULT NULL,
    vintage year(4) NOT NULL,
    vineyard varchar(45) NOT NULL,
    variety varchar(45) NOT NULL
@@ -21,7 +21,7 @@ VALUES
 -- -------------------------------------------------------
 
 CREATE TABLE Winemakers(
-    winemakerID INT(11),
+    winemakerID INT(11) DEFAULT NULL,
     firstName VARCHAR(45) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     location VARCHAR(45) NOT NULL
