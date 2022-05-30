@@ -58,7 +58,7 @@ VALUES
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL,
-    wineID INT(11) DEFAULT NULL,
+    wineType INT(11) DEFAULT NULL,
     dateReceived DATE NOT NULL,
     price decimal(19,2),
     quantityGallons INT(11)
@@ -78,12 +78,12 @@ VALUES
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL,
     task VARCHAR(400) NOT NULL,
-    winemakerID INT(11) DEFAULT NULL,
+    winemaker INT(11) DEFAULT NULL,
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete'
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO WorkOrders (workOrderID, task, winemakerID, dateOrdered) 
+INSERT INTO WorkOrders (workOrderID, task, winemaker, dateOrdered) 
 VALUES
 (1, 'Take sugar readings from 9/1/2021 -> 9/15/2021 for tanks 2-10', 4, '2021-08-05'),
 (2, 'Check SO2 and vineyard PWines manager with monthly update ', 1, '2021-08-12'),
@@ -125,13 +125,13 @@ ALTER TABLE Invoices
 
 ALTER TABLE WorkOrders
    ADD PRIMARY KEY (workOrderID),
-   ADD KEY winemakerID (winemakerID);
+   ADD KEY winemaker (winemaker);
 
 ALTER TABLE WorkOrders
    MODIFY workOrderID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 ALTER TABLE WorkOrders
-   ADD CONSTRAINT `WorkOrders_ibfk_1` FOREIGN KEY (`winemakerID`) REFERENCES `Winemakers` (`winemakerID`) ON DELETE SET NULL;
+   ADD CONSTRAINT `WorkOrders_ibfk_1` FOREIGN KEY (`winemaker`) REFERENCES `Winemakers` (`winemakerID`) ON DELETE SET NULL;
 
 ALTER TABLE Invoices
    MODIFY invoiceID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
