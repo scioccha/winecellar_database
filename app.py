@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
-app.config['MYSQL_USER'] = 'cs340_pattersv'
-app.config['MYSQL_PASSWORD'] = '7058'  # last 4 of onid
-app.config['MYSQL_DB'] = 'cs340_pattersv'
+app.config['MYSQL_USER'] = 'cs340_scioccha'
+app.config['MYSQL_PASSWORD'] = '0474'  # last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_scioccha'
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -87,8 +87,7 @@ def invoices():
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
 
-            if wineType == "
-            ":
+            if wineType == "":
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -274,7 +273,7 @@ def edit_workOrder(workOrderID):
                 mysql.connection.commit()
 
             else:
-                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemakerID = %s, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
+                query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemaker = %s, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
                 cur.execute(query, (task, winemaker, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
