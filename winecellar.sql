@@ -125,13 +125,13 @@ ALTER TABLE Invoices
 
 ALTER TABLE WorkOrders
    ADD PRIMARY KEY (workOrderID),
-   ADD KEY winemaker (winemaker);
+   ADD KEY winemakerID (winemakerID);
 
 ALTER TABLE WorkOrders
    MODIFY workOrderID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 ALTER TABLE WorkOrders
-   ADD CONSTRAINT `WorkOrders_ibfk_1` FOREIGN KEY (`winemaker`) REFERENCES `Winemakers` (`winemakerID`) ON DELETE SET NULL;
+   ADD CONSTRAINT `WorkOrders_ibfk_1` FOREIGN KEY (`winemakerID`) REFERENCES `Winemakers` (`winemakerID`) ON DELETE SET NULL;
 
 ALTER TABLE Invoices
    MODIFY invoiceID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
