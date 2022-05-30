@@ -78,7 +78,7 @@ VALUES
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL,
     task VARCHAR(400) NOT NULL,
-    winemaker INT(11) DEFAULT NULL,
+    winemakerID INT(11) DEFAULT NULL,
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete'
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
