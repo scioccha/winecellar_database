@@ -58,7 +58,7 @@ VALUES
 
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL,
-    wineType INT(11) DEFAULT NULL,
+    wineID INT(11) DEFAULT NULL,
     dateReceived DATE NOT NULL,
     price decimal(19,2),
     quantityGallons INT(11)
