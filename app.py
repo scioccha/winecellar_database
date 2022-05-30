@@ -87,7 +87,7 @@ def invoices():
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
 
-            if wineType == "":
+            if (wineType == "0" or wineType ==""):
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
@@ -208,7 +208,8 @@ def workOrders():
             task = request.form["task"]
             winemaker = request.form["winemaker"]
             dateOrdered = request.form["dateOrdered"]
-            if winemaker == "":
+
+            if (winemaker == "0" or winemaker == ""):
                 # add data
                 query = "INSERT INTO WorkOrders (task, dateOrdered) VALUES (%s,%s)"
                 cur = mysql.connection.cursor()
@@ -265,11 +266,10 @@ def edit_workOrder(workOrderID):
             winemaker = request.form["winemaker"]
             dateOrdered = request.form["dateOrdered"]
             status = request.form['status']
-            if winemaker == "":
-                print('ANYTHING ANYTHING ANYTHING')
+            if (winemaker == "0" or winemaker == ""):
                 query = "UPDATE WorkOrders SET WorkOrders.task = %s, WorkOrders.winemaker = NULL, WorkOrders.dateOrdered = %s, WorkOrders.status = %s WHERE WorkOrders.workOrderID = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query, (task, winemaker, dateOrdered, status, workOrderID))
+                cur.execute(query, (task, dateOrdered, status, workOrderID))
                 mysql.connection.commit()
 
             else:
