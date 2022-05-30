@@ -87,7 +87,8 @@ def invoices():
             price = request.form["price"]
             quantityGallons = request.form["quantityGallons"]
 
-            if wineType == "":
+            if wineType == "
+            ":
                 # add data
                 query = "INSERT INTO Invoices (dateReceived, price, quantityGallons) VALUES (%s, %s,%s)"
                 cur = mysql.connection.cursor()
