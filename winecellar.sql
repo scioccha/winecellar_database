@@ -83,7 +83,7 @@ CREATE TABLE WorkOrders(
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete'
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO WorkOrders (workOrderID, task, winemaker, dateOrdered) 
+INSERT INTO WorkOrders (workOrderID, task, winemakerID, dateOrdered) 
 VALUES
 (1, 'Take sugar readings from 9/1/2021 -> 9/15/2021 for tanks 2-10', 4, '2021-08-05'),
 (2, 'Check SO2 and vineyard PWines manager with monthly update ', 1, '2021-08-12'),
