@@ -38,16 +38,18 @@
         <!-- Access data tuple passed from app.py --> 
         {% if data %}
         <thead>
-            <tr>
-                <!-- Iterate through each key in the first entry to get the column name -->
-                    {% for key in data[0].keys() %}
-                    
-                    <!-- Create a <th> tag with the key inside of it, this will be our header row -->
-                <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-                
-                    <!-- End of this for loop -->
-                    {% endfor %} 
-                </tr>
+          <tr>
+              <th class="table_cell">Invoice ID</th>
+              <th class="table_cell">Wine ID</th>
+              <th class="table_cell">Date Received</th>
+              <th class="table_cell">Price</th>
+              <th class="table_cell">Quantity (gallons)</th>
+              <th class="table_cell">Vineyard</th>
+              <th class="table_cell">Variety</th>
+
+          </tr>
+        <!--Date: 5/30/2022-->
+        <!--Adapted from osu-cs340-flask-starter app, Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app -->
         <tbody>
 			<!-- Now, iterate through every item in data -->{% for item in data %}
 			<tr>
