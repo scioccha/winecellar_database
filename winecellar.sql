@@ -6,7 +6,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
--- Create Wines entity --
+--Create Wines entity--
 
 CREATE TABLE Wines (
    wineID int(11) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Wines (
    variety varchar(45) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Add sample data --
+--Add sample data--
 
 INSERT INTO Wines (wineID, vintage, vineyard, variety) 
 VALUES
@@ -122,12 +122,6 @@ VALUES
 
 ALTER TABLE Wines
    ADD PRIMARY KEY (wineID);
-
-ALTER TABLE Wines
-   ADD FULLTEXT (vineyard);
-
-ALTER TABLE Wines
-   ADD FULLTEXT (variety);
 
 ALTER TABLE Winemakers
    ADD PRIMARY KEY (winemakerID);
