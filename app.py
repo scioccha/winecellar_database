@@ -40,7 +40,7 @@ def wines():
             cur.execute(query, (vintage, vineyard, variety))
             mysql.connection.commit()
 
-            # redirect bback to wines
+            # redirect back to wines
             return redirect("/wines")
 
     # display wines using query to grab all wines in Wines
@@ -111,7 +111,7 @@ def invoices():
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT wineID FROM Wines;"
+        query2 = "SELECT wineID, vintage, variety, vineyard FROM Wines;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         wineID_data = cur.fetchall()
@@ -232,7 +232,7 @@ def workOrders():
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID FROM Winemakers;"
+        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
@@ -250,7 +250,7 @@ def edit_workOrder(workOrderID):
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID FROM Winemakers;"
+        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
@@ -322,13 +322,13 @@ def winemaker_details():
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID FROM Winemakers;"
+        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query3 = "SELECT wineID FROM Wines;"
+        query3 = "SELECT wineID, vintage, variety, vineyard FROM Wines;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         wineID_data = cur.fetchall()
@@ -354,13 +354,13 @@ def edit_winemaker_details(winemakerDetailsID):
         data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query2 = "SELECT winemakerID FROM Winemakers;"
+        query2 = "SELECT winemakerID, firstName, lastName FROM Winemakers;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         winemakerID_data = cur.fetchall()
 
         # mySQL query to grab winemaker ids for our dropdown
-        query3 = "SELECT wineID FROM Wines;"
+        query3 = "SELECT wineID, vintage, variety, vineyard FROM Wines;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         wineID_data = cur.fetchall()
