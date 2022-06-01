@@ -58,19 +58,16 @@
 </form></p>
 <p><a href="#" onClick="newWine()">Add New Wine</a> <p></p>
 		<table border="1" cellpadding="5">
-            <!-- Access data tuple passed from app.py --> 
-            {% if data %}
 			    <thead>
-				    <tr>
-            <!--Citation for the following lines of code (63 - 76) which creates a table of existing data:-->
+          <tr>
+              <th class="table_cell">Wine ID</th>
+              <th class="table_cell">Vintage</th>
+              <th class="table_cell">Vineyard</th>
+              <th class="table_cell">Variety</th>
+          </tr>
+            <!--Citation for the following lines of code (68 - 76) which creates a table of existing data:-->
             <!--Date: 5/18/2022-->
             <!--Adapted from osu-cs340-flask-starter app, Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app -->
-                        {% for key in data[0].keys() %}
-					    
-					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
-                        {% endfor %} 
-                    </tr>
-
 				<tbody>
 					{% for item in data %}
 					    <tr>
@@ -84,7 +81,6 @@
 
 					    </tr> 
                         {% endfor %} 
-                {% endif %} 
         </table>   
 	<p>&nbsp;</p>
 	</div>	<!-- browse -->
