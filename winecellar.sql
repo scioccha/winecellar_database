@@ -1,14 +1,21 @@
+-- Data Definition Queries for CellarTracker Database
+-- Written by Group 3: Victoria Patterson and Alexandra Sciocchetti
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+--Create Wines entity--
+
 CREATE TABLE Wines (
-   wineID int(11) DEFAULT NULL,
+   wineID int(11) NOT NULL,
    vintage year(4) NOT NULL,
    vineyard varchar(45) NOT NULL,
    variety varchar(45) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--Add sample data--
 
 INSERT INTO Wines (wineID, vintage, vineyard, variety) 
 VALUES
@@ -20,12 +27,16 @@ VALUES
 
 -- -------------------------------------------------------
 
+-- Create Winemakers Entity
+
 CREATE TABLE Winemakers(
-    winemakerID INT(11) DEFAULT NULL,
+    winemakerID INT(11) NOT NULL,
     firstName VARCHAR(45) NOT NULL,
     lastName VARCHAR(45) NOT NULL,
     location VARCHAR(45) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Add sample data
 
 INSERT INTO Winemakers (winemakerID, firstName, lastName, location) 
 VALUES
@@ -38,11 +49,15 @@ VALUES
 
 -- ----------------------------------------------------------
 
+-- Create Winmaker_Details entity. Note this is an intersection table between Wines and Winemakers
+
 CREATE TABLE Winemaker_Details(
     winemakerDetailsID INT(11) NOT NULL,
     winemakerID INT(11) NOT NULL,
     wineID int(11) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert sample data
 
 INSERT INTO Winemaker_Details (winemakerDetailsID, winemakerID, wineID) 
 VALUES
@@ -56,6 +71,8 @@ VALUES
 
 -- ---------------------------------------------------------
 
+-- Create Invoices entity 
+
 CREATE TABLE Invoices(
     invoiceID INT(11) NOT NULL,
     wineType INT(11) DEFAULT NULL,
@@ -63,6 +80,8 @@ CREATE TABLE Invoices(
     price decimal(19,2),
     quantityGallons INT(11)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert sample data
 
 INSERT INTO Invoices (invoiceID, wineType, dateReceived, price, quantityGallons) 
 VALUES
@@ -75,6 +94,8 @@ VALUES
 
 -- -------------------------------------------------------------
 
+-- Create WorkOrders entity
+
 CREATE TABLE WorkOrders(
     workOrderID INT(11) NOT NULL,
     task VARCHAR(400) NOT NULL,
@@ -82,6 +103,8 @@ CREATE TABLE WorkOrders(
     dateOrdered DATE NOT NULL,
     status enum('Incomplete','Complete') NOT NULL DEFAULT 'Incomplete'
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Insert sample data
 
 INSERT INTO WorkOrders (workOrderID, task, winemaker, dateOrdered) 
 VALUES
@@ -93,6 +116,8 @@ VALUES
 
 
 -- -----------------------------------------------------------------
+
+-- Alter tables to add primary and foreign keys
 
 ALTER TABLE Wines
    ADD PRIMARY KEY (wineID);
@@ -113,6 +138,8 @@ ALTER TABLE Winemakers
 
 ALTER TABLE Winemaker_Details
    MODIFY winemakerDetailsID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+-- Add constraints
 
 ALTER TABLE Winemaker_Details
    ADD CONSTRAINT winemakerID_FK FOREIGN KEY (winemakerID) REFERENCES Winemakers(winemakerID) ON DELETE CASCADE,
