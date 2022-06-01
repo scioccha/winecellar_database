@@ -97,9 +97,9 @@
           <select class="form-control" id="winemaker" name="winemaker" pattern="[0-9]+" placeholder="">
 
             <option value="0">&nbsp;</option>
-            {% for winemakerID in winemakerIDs %}
+            {% for winemaker in winemakerIDs %}
             
-              <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
+              <option value="{{winemaker.winemakerID}}">{{winemaker.winemakerID, winemaker.firstName, winemaker.lastName}}</option>
           
             {% endfor %}
 
