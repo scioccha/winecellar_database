@@ -119,11 +119,6 @@ VALUES
 
 -- Alter tables to add primary and foreign keys
 
-ALTER TABLE Wines
-   ADD FULLTEXT INDEX vineyard (vineyard);
-
-ALTER TABLE Wines
-   ADD FULLTEXT INDEX variety (variety);
 
 ALTER TABLE Wines
    ADD PRIMARY KEY (wineID);
