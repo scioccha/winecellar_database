@@ -53,7 +53,6 @@ def wines():
             cur = mysql.connection.cursor()
             cur.execute(query)
             data = cur.fetchall()
-            print(data)
         else:
             query1 = "SELECT wineID, vintage, vineyard, variety FROM Wines"
             cur = mysql.connection.cursor()
