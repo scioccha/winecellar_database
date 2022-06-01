@@ -96,7 +96,7 @@
                         <option value="0">&nbsp;</option>
                         {% for winemakerID in winemakerIDs %}
                         
-                        <option value="{{winemakerID['winemakerID']}}">{{winemakerID['winemakerID']}}</option>
+                        <option value="{{winemakerID.winemakerID}}">{{winemakerID.winemakerID, winemakerID.firstName, winemakerID.lastName}}</option>
                     
                         {% endfor %}
 
@@ -107,7 +107,7 @@
                         <option value="0">&nbsp;</option>
                         {% for wineID in wineIDs %}
                         
-                        <option value="{{wineID['wineID']}}">{{wineID['wineID']}}</option>
+                        <option value="{{wineID.wineID}}">{{wineID.wineID, wineID.vintage, wineID.variety, wineID.vineyard}}</option>
                     
                         {% endfor %}
 
