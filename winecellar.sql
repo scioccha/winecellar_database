@@ -123,6 +123,12 @@ VALUES
 ALTER TABLE Wines
    ADD PRIMARY KEY (wineID);
 
+ALTER TABLE Wines
+   ADD FULLTEXT (vineyard);
+
+ALTER TABLE Wines
+   ADD FULLTEXT (variety);
+
 ALTER TABLE Winemakers
    ADD PRIMARY KEY (winemakerID);
 
