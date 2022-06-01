@@ -6,7 +6,7 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
---Create Wines entity--
+-- Create Wines entity--
 
 CREATE TABLE Wines (
    wineID int(11) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Wines (
    variety varchar(45) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---Add sample data--
+-- Add sample data--
 
 INSERT INTO Wines (wineID, vintage, vineyard, variety) 
 VALUES
@@ -167,8 +167,8 @@ ALTER TABLE Invoices
 ALTER TABLE Invoices
    ADD CONSTRAINT `Invoices_ibfk_1` FOREIGN KEY (`wineType`) REFERENCES `Wines` (`wineID`) ON DELETE SET NULL;
 
--- ALTER TABLE Wines
---    ADD FULLTEXT(vineyard, variety);
+ALTER TABLE Wines
+   ADD FULLTEXT(vineyard, variety);
 
 COMMIT;
 
