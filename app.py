@@ -46,11 +46,14 @@ def wines():
     # display wines using query to grab all wines in Wines
     if request.method == "GET":
         search_query = request.query_string.decode()
+        # sq = search_query[2:]
+        # print(sq)
         if search_query:
-            query = f"SELECT * FROM Wines WHERE MATCH (vineyard, variety) AGAINST ('{search_query[2:]}' IN NATURAL LANGUAGE MODE);"
+            query = f"SELECT * FROM Wines WHERE MATCH (`variety`, `vineyard`) AGAINST ('{search_query[2:]}' IN NATURAL LANGUAGE MODE);"
             cur = mysql.connection.cursor()
             cur.execute(query)
             data = cur.fetchall()
+            print(data)
         else:
             query1 = "SELECT wineID, vintage, vineyard, variety FROM Wines"
             cur = mysql.connection.cursor()
