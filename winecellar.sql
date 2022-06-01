@@ -120,6 +120,12 @@ VALUES
 -- Alter tables to add primary and foreign keys
 
 ALTER TABLE Wines
+   ADD FULLTEXT INDEX vineyard (vineyard);
+
+ALTER TABLE Wines
+   ADD FULLTEXT INDEX variety (variety);
+
+ALTER TABLE Wines
    ADD PRIMARY KEY (wineID);
 
 ALTER TABLE Winemakers
@@ -165,6 +171,9 @@ ALTER TABLE Invoices
 
 ALTER TABLE Invoices
    ADD CONSTRAINT `Invoices_ibfk_1` FOREIGN KEY (`wineType`) REFERENCES `Wines` (`wineID`) ON DELETE SET NULL;
+
+-- ALTER TABLE Wines
+--    ADD FULLTEXT(vineyard, variety);
 
 COMMIT;
 
