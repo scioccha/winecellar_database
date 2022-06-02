@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Winemakers</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+  {% include "search_bar.html" %}
   <script language="JavaScript">
     function showform(dowhat) {
       if (dowhat == 'insert'){
@@ -49,8 +50,7 @@
 
 <body onload="browseWinemakers()">
   <h1>Winemakers</h1>
-	[ <a href="/">Home</a> | <a href="wines">Wines</a> | <a href="winemakers">Winemakers</a> | <a href="winemaker_details">Winemaker Details</a> | <a href="workOrders">Work Orders</a> | <a href="invoices">Invoices</a> ]
-	<div id="browse">
+		<div id="browse">
 		<p><a href="#" onClick="newWinemaker()">Add New Winemaker</a> </p>
 		<table border="1" cellpadding="5">
           <tr>

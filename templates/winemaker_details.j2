@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Winemakers</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-  <script language="JavaScript">
+  <title>Winemaker Details</title>
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+  {% include "search_bar.html" %}
+    <script language="JavaScript">
     function showform(dowhat) {
       if (dowhat == 'insert'){
       document.getElementById('browse').style.display = 'none';
@@ -49,8 +50,7 @@
 
 <body onload="browseDetails()">
   <h1>Winemaker Details</h1>
-	[ <a href="/">Home</a> | <a href="wines">Wines</a> | <a href="winemakers">Winemakers</a> | <a href="winemaker_details">Winemaker Details</a> | <a href="workOrders">Work Orders</a> | <a href="invoices">Invoices</a> ]
-	<div id="browse">
+		<div id="browse">
 		<p><a href="#" onClick="newDetails()">Add New Winemaker Details</a> </p>
 		<table border="1" cellpadding="5">
 			    <thead>
