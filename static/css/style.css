@@ -1,19 +1,23 @@
 /* CSS Styling */
 
-header {
-    background-color: #DFB887;
-    height: 35px;
-    width: 100%;
-    opacity: .9;
-    margin-bottom: 10px;
+.heading {
+    text-align: center; 
   }
+
+.heading h1 {
+display: inline-block;
+}
+
 
 ul {
     list-style-type: none;
-    margin: 2;
+    margin: 0 auto;
     padding: 2;
     overflow: hidden;
     background-color: #6B3074;
+    text-align: center;
+    list-style-position: inside;
+
   }
 
 li {
@@ -28,16 +32,16 @@ li a {
     text-decoration: none;
   }
 
+.nav__link--active,
+.nav__link:hover {
+font-weight: bold;
+background-color: #1A2744;
+}
 
 body {
     background-color: #D8E0BB;
 }
 h1 {
     color: #6b3074;
-}
 
-
-table.center {
-    margin-left:auto; 
-    margin-right:auto;
 }
