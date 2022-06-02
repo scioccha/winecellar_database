@@ -2,13 +2,15 @@
 <!-- Site navigation -->
 <html lang="en">
 
-<nav>
-    <ul id = "Nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="wines">Wines</a></li>
-        <li><a href="winemakers">Winemakers</a></li>
-        <li><a href="winemaker_details">Winemaker Details</a></li>
-        <li><a href="workOrders">Work Orders</a></li>
-        <li><a href="invoices">Invoices</a></li>
-    </ul>
-</nav>
+<div class = "navbar">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="wines" class = "nav_link {{ 'nav__link--active' if request.path == url_for('wines') }}">Wines</a></li>
+            <li><a href="winemakers" class = "nav_link {{ 'nav__link--active' if request.path == url_for('winemakers') }}">Winemakers</a></li>
+            <li><a href="winemaker_details" class = "nav_link {{ 'nav__link--active' if request.path == url_for('winemaker_details') }}">Winemaker Details</a></li>
+            <li><a href="workOrders" class = "nav_link {{ 'nav__link--active' if request.path == url_for('workOrders') }}">Work Orders</a></li>
+            <li><a href="invoices" class = "nav_link {{ 'nav__link--active' if request.path == url_for('invoices') }}">Invoices</a></li>
+        </ul>
+    </nav>
+</div>

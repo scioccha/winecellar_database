@@ -1,47 +1,35 @@
 <html>
 <head>
-	<title>Edit Winemaker Details</title>
+	<title>Edit Winemakers</title>
+    <div class="heading">
+        <h1>CellarTracker</h1>
+    </div>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
     {% include "search_bar.html" %}
-</head>
+    </head>
 
 <body>
     <div>
 
         <div id="edit">
-            <!-- form to edit data in winemaker details-->
-            <form id="editDetails" action="/edit_winemaker_details/{{data[0].winemakerDetailsID}}" method="post">
-                <legend><strong>Edit Winemaker Details</strong></legend>
+            <!-- form to edit data in winemakers-->
+            <form id="editWinemaker" action="/edit_winemakers/{{data[0].winemakerID}}" method="post">
+                <legend><strong>Edit Winemaker</strong></legend>
                 <fieldset>
-                    <input type="hidden" value="{{data[0].winemakerDetailsID}}" class="form-control" id="winemakerDetailsID" name="winemakerDetailsID" required>
+                    <input type="hidden" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" required>
 
-                    <label>winemaker ID:</label>
-                        <select class="form-control" id="winemakerID" name="winemakerID" pattern="[0-9]+" placeholder="" required>
+                    <label>first name:</label>
+                    <input type="text" value="{{data[0].firstName}}" class="form-control" id="firstName" name="firstName" pattern="[A-Za-z]{1,}" required>
 
-                            <option value="0">&nbsp;</option>
-                            {% for winemakerID in winemakerIDs %}
-
-                                <option value="{{winemakerID.winemakerID}}">{{winemakerID.winemakerID, winemakerID.firstName, winemakerID.lastName}}</option>
-                            
-                            {% endfor %}
-
-                        </select>
-
-                    <label>wine ID:</label>
-                        <select class="form-control" id="wineID" name="wineID" pattern="[0-9]+" placeholder="" required>
-
-                                <option value="0">&nbsp;</option>
-                                {% for wineID in wineIDs %}
-
-                                <option value="{{wineID.wineID}}">{{wineID.wineID, wineID.vintage, wineID.variety, wineID.vineyard}}</option>
-                                
-                                {% endfor %}
-
-                            </select>
+                    <label>last name:</label>
+                    <input type="text" value="{{data[0].lastName}}" class="form-control" id="lastName" name="lastName" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label>location:</label>
+                    <input type="text" value="{{data[0].location}}" class="form-control" id="location" name="location" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
                 </fieldset>
-                <input type="submit" value="Submit Changes" name="Edit_Winemaker_Details" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/winemaker_details'><input class="btn" type="button" value="Cancel"></a>
+                <input type="submit" value="Submit Changes" name="Edit_Winemaker" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/winemakers'><input class="btn" type="button" value="Cancel"></a>
             </form>
 
 </html>
