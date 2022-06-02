@@ -1,0 +1,43 @@
+/* CSS Styling */
+
+header {
+    background-color: #DFB887;
+    height: 35px;
+    width: 100%;
+    opacity: .9;
+    margin-bottom: 10px;
+  }
+
+ul {
+    list-style-type: none;
+    margin: 2;
+    padding: 2;
+    overflow: hidden;
+    background-color: #6B3074;
+  }
+
+li {
+    float: left;
+  }
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+
+body {
+    background-color: #D8E0BB;
+}
+h1 {
+    color: #6b3074;
+}
+
+
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+}
