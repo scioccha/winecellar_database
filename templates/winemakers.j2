@@ -8,7 +8,17 @@
         <h1>CellarTracker</h1>
   </div>
   
+  <!-- Style Sheet -->
   <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/f430b5db3b.js" crossorigin="anonymous"></script>
+  
   {% include "search_bar.html" %}
   <script language="JavaScript">
     function showform(dowhat) {
@@ -54,13 +64,15 @@
 
 <body onload="browseWinemakers()">
 		<div id="browse">
-		<p><a href="#" onClick="newWinemaker()">Add New Winemaker</a> </p>
+		<p><a class="addNew" href="#" onClick="newWinemaker()">Add New Winemaker</a> </p>
 		<table border="1" cellpadding="5">
           <tr>
               <th class="table_cell">Winemaker ID</th>
               <th class="table_cell">First Name</th>
               <th class="table_cell">Last Name</th>
               <th class="table_cell">Location</th>
+              <th class="table_cell">Edit</th>
+              <th class="table_cell">Delete</th>
           </tr>
 
 				<tbody>
@@ -74,9 +86,11 @@
 						    <td> {{item[key]}} </td> 
                             {% endfor %}
 
-                            <!-- Create edit and delete buttons -->
-                 <td><a href="edit_winemakers/{{item.winemakerID}}" class="btn btn-default">Edit</a></td>
-						    <td><a href="delete_winemakers/{{item.winemakerID}}" class="btn btn-default">Delete</a></td>
+                            <!-- Create edit button -->
+                 <td><a href="edit_winemakers/{{item.winemakerID}}" class="btn btn-default"><i class="fas fa-pen"></i></a></td>
+                 
+                          <!-- Create our delete button -->
+				        <td><a href="delete_workOrder/{{item.workOrderID}}" class="btn btn-default"><i class="fas fa-trash"></i></a></td>
 
 					    </tr> 
                         {% endfor %} 
