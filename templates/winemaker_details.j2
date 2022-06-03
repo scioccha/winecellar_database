@@ -8,7 +8,17 @@
         <h1>CellarTracker</h1>
   </div>
   
+  <!-- Style Sheet -->
   <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/f430b5db3b.js" crossorigin="anonymous"></script>
+  
   {% include "search_bar.html" %}
     <script language="JavaScript">
     function showform(dowhat) {
@@ -54,7 +64,7 @@
 
 <body onload="browseDetails()">
 		<div id="browse">
-		<p><a href="#" onClick="newDetails()">Add New Winemaker Details</a> </p>
+		<p><a class="addNew" href="#" onClick="newDetails()">Add New Winemaker Details</a> </p>
 		<table border="1" cellpadding="5">
 			    <thead>
 				    <tr>
@@ -65,6 +75,8 @@
               <th class="table_cell">Vineyard</th>
               <th class="table_cell">Winemaker ID</th>
               <th class="table_cell">Wine ID</th>
+              <th class="table_cell">Edit</th>
+              <th class="table_cell">Delete</th>
 
             </tr>
             <!--Citation for the following lines of code (67 - 76) which creates a table of existing data:-->
@@ -79,9 +91,11 @@
 						    <td> {{item[key]}} </td> 
                             {% endfor %}
 
-                            <!-- Create edit and delete buttons -->
-                 <td><a href="edit_winemaker_details/{{item.winemakerDetailsID}}" class="btn btn-default">Edit</a></td>
-						    <td><a href="delete_winemaker_details/{{item.winemakerDetailsID}}" class="btn btn-default">Delete</a></td>
+                            <!-- Create edit button -->
+                 <td><a href="edit_winemaker_details/{{item.winemakerDetailsID}}" class="btn btn-default"><i class="fas fa-pen"></i></a></td>
+                 
+                          <!-- Create our delete button -->
+				        <td><a href="delete_winemaker_details/{{item.winemakerDetailsID}}" class="btn btn-default"><i class="fas fa-trash"></i></a></td>
 
 					    </tr> 
                         {% endfor %} 
