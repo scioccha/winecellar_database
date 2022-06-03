@@ -9,7 +9,17 @@
     <h1>CellarTracker</h1>
   </div>
 
+  <!-- Style Sheet -->
   <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/f430b5db3b.js" crossorigin="anonymous"></script>
+  
   {% include "search_bar.html" %}
   <script language="JavaScript">
       function showform(dowhat) {
@@ -55,12 +65,7 @@
 
 <body onload="browseWines()">
 	<div id="browse"> 
-    <p>Search by Vineyard or Variety:</p> 
-    <form id="search">
-    <input type="search" name="q" placeholder="Search..." id="searchWines">
-    <button>Search</button>
-</form></p>
-<p><a href="#" onClick="newWine()">Add New Wine</a> <p></p>
+<p><a class="addNew" href="#" onClick="newWine()">Add New Wine</a> <p></p>
 		<table border="1" cellpadding="5">
 			    <thead>
           <tr>
@@ -68,6 +73,7 @@
               <th class="table_cell">Vintage</th>
               <th class="table_cell">Vineyard</th>
               <th class="table_cell">Variety</th>
+              <th class="table_cell">Delete</th>
           </tr>
             <!--Citation for the following lines of code (68 - 76) which creates a table of existing data:-->
             <!--Date: 5/18/2022-->
@@ -79,13 +85,18 @@
                             
 						    <td> {{item[key]}} </td> 
                             {% endfor %}
-
-                            <!-- Create delete button -->
-						    <td><a href="delete_wines/{{item.wineID}}" class="btn btn-default">Delete</a></td>
+                 
+                          <!-- Create our delete button -->
+				        <td><a href="delete_wines/{{item.wineID}}" class="btn btn-default"><i class="fas fa-trash"></i></a></td>
 
 					    </tr> 
                         {% endfor %} 
         </table>   
+      <p>Search by Vineyard or Variety:</p> 
+      <form id="search">
+      <input type="search" name="q" placeholder="Search..." class="form-control" required>
+      <button>Search</button>
+      </form></p>
 	<p>&nbsp;</p>
 	</div>	<!-- browse -->
 
