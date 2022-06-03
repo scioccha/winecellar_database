@@ -9,7 +9,17 @@
         <h1>CellarTracker</h1>
   </div>
   
+  <!-- Style Sheet -->
   <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/f430b5db3b.js" crossorigin="anonymous"></script>
+    
   {% include "search_bar.html" %}
   <script language="JavaScript">
     function showform(dowhat) {
@@ -36,7 +46,7 @@
 <body onload="browseInvoices()">
 
   <div id="browse">
-    <p><a href="#" onClick="newInvoice()">Add New Invoice</a></p>
+    <p><a class="addNew" href="#" onClick="newInvoice()">Add New Invoice</a></p>
     <table border="1" cellpadding="5">
         <!-- Access data tuple passed from app.py --> 
         {% if data %}
@@ -49,6 +59,7 @@
               <th class="table_cell">Quantity (gallons)</th>
               <th class="table_cell">Vineyard</th>
               <th class="table_cell">Variety</th>
+              <th class="table_cell">Delete</th>
 
           </tr>
         <!--Date: 5/30/2022-->
@@ -62,9 +73,9 @@
 				<!-- Create a <td> element with the value of that key in it -->
 				<td> {{item[key]}} </td> 
                             {% endfor %}
-
-                            <!-- Create our delete button -->
-				<td><a href="delete_invoices/{{item.invoiceID}}" class="btn btn-default">Delete</a></td>
+                 
+                          <!-- Create our delete button -->
+				        <td><a href="delete_invoices/{{item.invoiceID}}" class="btn btn-default"><i class="fas fa-trash"></i></a></td>
 
 				</tr> 
                         {% endfor %} 
