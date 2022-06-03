@@ -8,7 +8,17 @@
         <h1>CellarTracker</h1>
   </div>
   
+  <!-- Style Sheet -->
   <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+
+  <!-- Font awesome icons -->
+  <script src="https://kit.fontawesome.com/f430b5db3b.js" crossorigin="anonymous"></script>
+
   {% include "search_bar.html" %}
   <script language="JavaScript">
     function showform(dowhat) {
@@ -54,7 +64,7 @@
 
 <body onload="browseWorkOrders()">
 		<div id="browse">
-		<p><a href="#" onClick="newWorkOrder()">Add New Work Order</a> </p>
+		<p><a class="addNew" href="#" onClick="newWorkOrder()">Add New Work Order</a> </p>
 		<table border="1" cellpadding="5">
 			    <thead>
           <tr>
@@ -65,6 +75,8 @@
               <th class="table_cell">Last Name</th>
               <th class="table_cell">Date Ordered</th>
               <th class="table_cell">Status</th>
+              <th class="table_cell">Edit</th>
+              <th class="table_cell">Delete</th>
 
           </tr>
 
@@ -80,9 +92,10 @@
                             {% endfor %}
 
                             <!-- Create edit button -->
-                 <td><a href="edit_workOrder/{{item.workOrderID}}" class="btn btn-default">Edit</a></td>
+                 <td><a href="edit_workOrder/{{item.workOrderID}}" class="btn btn-default"><i class="fas fa-pen"></i></a></td>
+                 
                           <!-- Create our delete button -->
-				        <td><a href="delete_workOrder/{{item.workOrderID}}" class="btn btn-default">Delete</a></td>
+				        <td><a href="delete_workOrder/{{item.workOrderID}}" class="btn btn-default"><i class="fas fa-trash"></i></a></td>
 
 					    </tr> 
                         {% endfor %} 
@@ -92,7 +105,7 @@
 
 	<div id="insert">
 		<!-- form to INSERT new data into workOrders-->
-		<form id="insertWorkOrder" action="/workOrders" method="post">
+		<form class="addNew" id="insertWorkOrder" action="/workOrders" method="post">
 			<legend><strong>Add Work Order</strong></legend>
 			<fieldset>
 				<label>Task:</label>
