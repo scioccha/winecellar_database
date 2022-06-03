@@ -5,6 +5,9 @@
         <h1>CellarTracker</h1>
     </div>
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
     {% include "search_bar.html" %}
     </head>
 
@@ -18,13 +21,13 @@
                 <fieldset>
                     <input type="hidden" value="{{data[0].winemakerID}}" class="form-control" id="winemakerID" name="winemakerID" required>
 
-                    <label>first name:</label>
+                    <label>First Name:</label>
                     <input type="text" value="{{data[0].firstName}}" class="form-control" id="firstName" name="firstName" pattern="[A-Za-z]{1,}" required>
 
-                    <label>last name:</label>
+                    <label>Last Name:</label>
                     <input type="text" value="{{data[0].lastName}}" class="form-control" id="lastName" name="lastName" pattern="[A-Za-z]{1,}" required>
                     
-                    <label>location:</label>
+                    <label>Location:</label>
                     <input type="text" value="{{data[0].location}}" class="form-control" id="location" name="location" pattern="/^[a-zA-Z\s]+\,[a-zA-Z\s]+$/" required>
 
                 </fieldset>
