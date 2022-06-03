@@ -102,3 +102,15 @@ legend {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+#wmd-desc {
+  font-size: 14px;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+}
