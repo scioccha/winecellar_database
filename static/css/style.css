@@ -1,11 +1,18 @@
 /* CSS Styling */
 
+* {
+  font-family: 'Raleway', sans-serif;
+  font-style: bold;
+}
+
 .heading {
-    text-align: center; 
+  text-align: center; 
+  color: #6b3074;
+  background: #D8E0BB;
   }
 
 .heading h1 {
-display: inline-block;
+  display: inline-block;
 }
 
 
@@ -21,11 +28,12 @@ ul {
   }
 
 li {
-    float: left;
+    /* float: left; */
+    display: inline-flex;
   }
   
 li a {
-    display: block;
+    /* display: block; */
     color: white;
     text-align: center;
     padding: 14px 16px;
@@ -39,9 +47,58 @@ background-color: #1A2744;
 }
 
 body {
-    background-color: #D8E0BB;
+  background-color: #D2DDE9;
 }
-h1 {
-    color: #6b3074;
+.heading {
+  color: #6b3074;
+  background: #D8E0BB;
+}
 
+#homePage {
+  background-image: url(grapes-homepage.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
+
+#homePageBio {
+  padding: 5% 15%;
+  font-style: italic;
+  text-align: center;
+}
+
+a {
+  text-decoration: underline;
+  text-decoration-thickness: .07em;
+  color: black;
+}
+
+table {
+  background-color: #F0F4F8;
+  border-collapse: collapse;
+  border: solid black;
+  padding: .5%;
+  width: 100%;
+  text-align: center;
+}
+
+th, td {
+  border-color: #D2DDE9;
+}
+
+th {
+  background-color: #DCD9E9;
+}
+
+.form-control:active {
+  background-color: white;
+}
+
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+legend {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
