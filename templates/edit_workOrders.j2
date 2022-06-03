@@ -6,6 +6,9 @@
     </div>
 
     <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
     {% include "search_bar.html" %}
     </head>
 
@@ -29,6 +32,7 @@
                         {% for winemaker in winemakerIDs %}
 
                             <option value="{{winemaker.winemakerID}}">{{winemaker.winemakerID, winemaker.firstName, winemaker.lastName}}</option>
+                            
                         
                         {% endfor %}
 
